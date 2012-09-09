@@ -42,23 +42,22 @@ class DraggingMain {
        var ts:TileSheetHelper=new TileSheetHelper();
         var ats:AnimTextureSheet= ts.prepareAnimTexture(pack.loadFile("remiWalk.json",true)) ;
 
-        for (ii in 0...10) {
+        for (ii in 0...1) {
             var tentacle = new Entity() ;
           //  .add(new AnimSprite(pack.loadTexture("remiWalk.png")));
 
         var as:AnimSprite=  new AnimSprite(pack.loadTexture("remiWalk.png"));
 
         as.initialize(ats);
-            as.addSequence("all",[1,2,3,4,5,6,7,8,9,10,11],5);
+            as.addSequence("all",[0,1,2,3,4,5,6,7,8,9,10,11],12);
             as.play("all");
+            as.centerAnchor();
             tentacle.add(as);
            /* .add(new Draggable());*/
             var sprite = tentacle.get(AnimSprite);
-            sprite.x._ = Math.random() * (System.stage.width - sprite.getNaturalWidth());
-            sprite.y._ = Math.random() * (System.stage.height - sprite.getNaturalHeight());
+            sprite.x._ = 100;//Math.random() * (System.stage.width - sprite.getNaturalWidth());
+            sprite.y._ = 100;//Math.random() * (System.stage.height - sprite.getNaturalHeight());
 
-          //  sprite.scaleX._ = sprite.scaleY._ = 0.5 + Math.random() * 4;
-            sprite.rotation._ = Math.random() * 90;
             System.root.addChild(tentacle);
         }
     }
