@@ -1,3 +1,6 @@
+import flambe.geom.Transform;
+import flambe.display.Sprite;
+import flambe.geom.Matrix;
 import flambe.tileSheet.AnimTextureSheet;
 import flambe.tileSheet.TileSheetHelper;
 import flambe.tileSheet.AnimSprite;
@@ -42,7 +45,7 @@ class DraggingMain {
        var ts:TileSheetHelper=new TileSheetHelper();
         var ats:AnimTextureSheet= ts.prepareAnimTexture(pack.loadFile("remiWalk.json",true)) ;
 
-        for (ii in 0...100) {
+        for (ii in 0...1) {
             var tentacle = new Entity() ;
           //  .add(new AnimSprite(pack.loadTexture("remiWalk.png")));
 
@@ -54,9 +57,23 @@ class DraggingMain {
             as.centerAnchor();
             tentacle.add(as);
            /* .add(new Draggable());*/
-            var sprite = tentacle.get(AnimSprite);
-            sprite.x._ = Math.random() * (System.stage.width - sprite.getNaturalWidth());
-            sprite.y._ = Math.random() * (System.stage.height - sprite.getNaturalHeight());
+            var sprite:Sprite = tentacle.get(AnimSprite);
+          //  sprite.x._ = Math.random() * (System.stage.width - sprite.getNaturalWidth());
+          //  sprite.y._ = Math.random() * (System.stage.height - sprite.getNaturalHeight());
+            var myMatrix:Matrix = new Matrix();
+            myMatrix.a = 1;
+            myMatrix.d = 1;
+            myMatrix.tx = 100;
+            myMatrix.ty = 200;
+
+
+
+
+            myMatrix.scale(0.5,2);
+            myMatrix.rotate(45);
+            var rectangleTrans:Transform = new Transform(sprite);
+
+            sprite.transform.matrix=myMatrix;
 
             System.root.addChild(tentacle);
         }
