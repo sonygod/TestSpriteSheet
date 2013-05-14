@@ -1,0 +1,27 @@
+# project  configured on Tue May 14 13:51:46 2013 by
+# waf 1.6.11 (abi 98, python 20700f0 on win32)
+# using C:\Motion-Twin\haxe\lib\flambe\3,0\bin\waf --flashdevelop=release -j1 configure install
+#
+----------------------------------------
+Setting top to
+C:\Users\p5\Documents\GitHub\TestSpriteSheet
+----------------------------------------
+Setting out to
+C:\Users\p5\Documents\GitHub\TestSpriteSheet\build
+----------------------------------------
+Checking for program haxe
+C:\Motion-Twin\haxe\haxe.exe
+find program=['haxe'] paths=['C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\ATI Technologies\\ATI.ACE\\Core-Static', 'E:\\work\\tool', 'D:\\Program Files\\TortoiseSVN\\bin', 'D:\\Program Files\\TortoiseGit\\bin', 'C:\\Program Files\\Lua\\5.1', 'C:\\Program Files\\Lua\\5.1\\clibs', 'C:\\Program Files\\Microsoft SQL Server\\90\\Tools\\binn\\', 'C:\\Program Files\\Java\\jdk1.7.0_03\\bin\\', 'C:\\Program Files\\Common Files\\Autodesk Shared\\', 'C:\\Program Files\\Autodesk\\Backburner\\', 'C:\\Program Files\\TortoiseHg\\', 'C:\\Program Files\\OpenCTM 1.0.3\\bin', 'C:\\protoc\\', 'C:\\Users\\p5\\Documents\\GitHub\\pomelo\\bin', 'C:\\Users\\p5\\AppData\\Roaming\\npm\\node_modules', 'C:\\Python27', 'C:\\Program Files\\nodejs\\', 'C:\\Motion-Twin\\haxe\\', 'C:\\Motion-Twin\\neko', 'C:\\protoc\\protoc.exe', 'C:\\Users\\p5\\AppData\\Roaming\\npm', 'C:\\Program Files\\Spaceport'] var='HAXE' -> 'C:\\Motion-Twin\\haxe\\haxe.exe'
+----------------------------------------
+Checking for program java
+C:\Windows\system32\java.exe
+find program=['java'] paths=['C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\ATI Technologies\\ATI.ACE\\Core-Static', 'E:\\work\\tool', 'D:\\Program Files\\TortoiseSVN\\bin', 'D:\\Program Files\\TortoiseGit\\bin', 'C:\\Program Files\\Lua\\5.1', 'C:\\Program Files\\Lua\\5.1\\clibs', 'C:\\Program Files\\Microsoft SQL Server\\90\\Tools\\binn\\', 'C:\\Program Files\\Java\\jdk1.7.0_03\\bin\\', 'C:\\Program Files\\Common Files\\Autodesk Shared\\', 'C:\\Program Files\\Autodesk\\Backburner\\', 'C:\\Program Files\\TortoiseHg\\', 'C:\\Program Files\\OpenCTM 1.0.3\\bin', 'C:\\protoc\\', 'C:\\Users\\p5\\Documents\\GitHub\\pomelo\\bin', 'C:\\Users\\p5\\AppData\\Roaming\\npm\\node_modules', 'C:\\Python27', 'C:\\Program Files\\nodejs\\', 'C:\\Motion-Twin\\haxe\\', 'C:\\Motion-Twin\\neko', 'C:\\protoc\\protoc.exe', 'C:\\Users\\p5\\AppData\\Roaming\\npm', 'C:\\Program Files\\Spaceport'] var='JAVA' -> 'C:\\Windows\\system32\\java.exe'
+----------------------------------------
+Checking for program adt
+not found
+find program=['adt'] paths=['C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\ATI Technologies\\ATI.ACE\\Core-Static', 'E:\\work\\tool', 'D:\\Program Files\\TortoiseSVN\\bin', 'D:\\Program Files\\TortoiseGit\\bin', 'C:\\Program Files\\Lua\\5.1', 'C:\\Program Files\\Lua\\5.1\\clibs', 'C:\\Program Files\\Microsoft SQL Server\\90\\Tools\\binn\\', 'C:\\Program Files\\Java\\jdk1.7.0_03\\bin\\', 'C:\\Program Files\\Common Files\\Autodesk Shared\\', 'C:\\Program Files\\Autodesk\\Backburner\\', 'C:\\Program Files\\TortoiseHg\\', 'C:\\Program Files\\OpenCTM 1.0.3\\bin', 'C:\\protoc\\', 'C:\\Users\\p5\\Documents\\GitHub\\pomelo\\bin', 'C:\\Users\\p5\\AppData\\Roaming\\npm\\node_modules', 'C:\\Python27', 'C:\\Program Files\\nodejs\\', 'C:\\Motion-Twin\\haxe\\', 'C:\\Motion-Twin\\neko', 'C:\\protoc\\protoc.exe', 'C:\\Users\\p5\\AppData\\Roaming\\npm', 'C:\\Program Files\\Spaceport'] var='ADT' -> None
+from C:\Users\p5\Documents\GitHub\TestSpriteSheet: Could not find the program adt
+----------------------------------------
+Checking for program npm
+C:\Program Files\nodejs\npm.cmd
+find program=['npm'] paths=['C:\\Windows\\system32', 'C:\\Windows', 'C:\\Windows\\System32\\Wbem', 'C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\', 'C:\\Program Files\\ATI Technologies\\ATI.ACE\\Core-Static', 'E:\\work\\tool', 'D:\\Program Files\\TortoiseSVN\\bin', 'D:\\Program Files\\TortoiseGit\\bin', 'C:\\Program Files\\Lua\\5.1', 'C:\\Program Files\\Lua\\5.1\\clibs', 'C:\\Program Files\\Microsoft SQL Server\\90\\Tools\\binn\\', 'C:\\Program Files\\Java\\jdk1.7.0_03\\bin\\', 'C:\\Program Files\\Common Files\\Autodesk Shared\\', 'C:\\Program Files\\Autodesk\\Backburner\\', 'C:\\Program Files\\TortoiseHg\\', 'C:\\Program Files\\OpenCTM 1.0.3\\bin', 'C:\\protoc\\', 'C:\\Users\\p5\\Documents\\GitHub\\pomelo\\bin', 'C:\\Users\\p5\\AppData\\Roaming\\npm\\node_modules', 'C:\\Python27', 'C:\\Program Files\\nodejs\\', 'C:\\Motion-Twin\\haxe\\', 'C:\\Motion-Twin\\neko', 'C:\\protoc\\protoc.exe', 'C:\\Users\\p5\\AppData\\Roaming\\npm', 'C:\\Program Files\\Spaceport'] var='NPM' -> 'C:\\Program Files\\nodejs\\npm.cmd'
