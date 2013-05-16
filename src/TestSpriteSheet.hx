@@ -1,4 +1,5 @@
 
+import flambe.display.camera.Camera2D;
 import flambe.display.Sprite;
 
 import flambe.display.tileSheet.AnimTextureSheet;
@@ -13,7 +14,13 @@ import flambe.System;
 import flambe.debug.FpsDisplay;
 import flambe.display.Font;
 import flambe.display.TextSprite;
+import flambe.math.Matrix;
+using Lambda;
+import flambe.Component;
+
+
 class TestSpriteSheet {
+	var ddd:Camera2D;
     private static function main() {
         System.init();
 
@@ -41,11 +48,13 @@ class TestSpriteSheet {
         System.root.addChild(new Entity()
         .add(new FillSprite(0x303030, System.stage.width, System.stage.height)));
 
+		var container:Entity = new Entity();
+		 System.root.addChild(container);
        var ts:TileSheetHelper=new TileSheetHelper();
         var ats:AnimTextureSheet= ts.prepareAnimTexture(pack.getFile("remiWalk.json",true)) ;
-
-        for (ii in 0...500) {
-            var tentacle = new Entity() ;
+        var arr:Array<Sprite> = [];
+        for (ii in 0...10) {
+            var tentacle:Entity = new Entity() ;
           //  .add(new AnimSprite(pack.loadTexture("remiWalk.png")));
 
         var as:AnimSprite=  new AnimSprite(pack.getTexture("remiWalk"));
@@ -57,15 +66,42 @@ class TestSpriteSheet {
             tentacle.add(as);
            /* .add(new Draggable());*/
             var sprite:Sprite = tentacle.get(AnimSprite);
-          sprite.x._ = Math.random() * (System.stage.width - sprite.getNaturalWidth());
+           sprite.x._ = Math.random() * (System.stage.width - sprite.getNaturalWidth());
            sprite.y._ = Math.random() * (System.stage.height - sprite.getNaturalHeight());
-           
-
-            System.root.addChild(tentacle);
+           arr.push(sprite);
+  
+		   sprite.getLocalMatrix().translate(10, 0);
+		   
+		   
+            container.addChild(tentacle);
 			
-			
+		
 			
         }
+		 System.pointer.down.connect(function (event) {
+            
+			 var arr:Array < Sprite>=[];
+		 var child :Entity= container.firstChild;
+      while (child != null) {
+      var next = child.next; // Store in case the child is removed in process()
+	  if(Std.is(child.firstComponent,Sprite)){
+       arr.push(cast child.firstComponent);
+      child = next;
+	  }}
+			 
+			
+	 
+			 for (com in arr) {
+			     
+				com.getLocalMatrix().translate(20, 0);
+				 
+			 }
+			 
+
+			  
+        });
+
+		
 		
 		 var font = new Font(pack, "tinyfont");
         System.root.addChild(new Entity()
