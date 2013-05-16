@@ -1,6 +1,8 @@
 
 import flambe.display.camera.Camera2D;
 import flambe.display.Sprite;
+import flambe.math.Point;
+import flambe.math.Rectangle;
 
 import flambe.display.tileSheet.AnimTextureSheet;
 import flambe.display.tileSheet.TileSheetHelper;
@@ -47,12 +49,15 @@ class TestSpriteSheet {
 // Add a filled background color
         System.root.addChild(new Entity()
         .add(new FillSprite(0x303030, System.stage.width, System.stage.height)));
+		
+		
 
 		var container:Entity = new Entity();
 		 System.root.addChild(container);
        var ts:TileSheetHelper=new TileSheetHelper();
         var ats:AnimTextureSheet= ts.prepareAnimTexture(pack.getFile("remiWalk.json",true)) ;
         var arr:Array<Sprite> = [];
+		var target:Sprite=null;
         for (ii in 0...10) {
             var tentacle:Entity = new Entity() ;
           //  .add(new AnimSprite(pack.loadTexture("remiWalk.png")));
@@ -66,11 +71,14 @@ class TestSpriteSheet {
             tentacle.add(as);
            /* .add(new Draggable());*/
             var sprite:Sprite = tentacle.get(AnimSprite);
-           sprite.x._ = Math.random() * (System.stage.width - sprite.getNaturalWidth());
-           sprite.y._ = Math.random() * (System.stage.height - sprite.getNaturalHeight());
+			if (target==null) {
+			target = sprite;	
+			}
+           sprite.x._ =  sprite.getNaturalWidth()*(ii+1);
+           sprite.y._ =  200;//sprite.getNaturalHeight()*(ii+1);
            arr.push(sprite);
   
-		   sprite.getLocalMatrix().translate(10, 0);
+		   
 		   
 		   
             container.addChild(tentacle);
@@ -78,34 +86,16 @@ class TestSpriteSheet {
 		
 			
         }
-		 System.pointer.down.connect(function (event) {
-            
-			 var arr:Array < Sprite>=[];
-		 var child :Entity= container.firstChild;
-      while (child != null) {
-      var next = child.next; // Store in case the child is removed in process()
-	  if(Std.is(child.firstComponent,Sprite)){
-       arr.push(cast child.firstComponent);
-      child = next;
-	  }}
-			 
-			
-	 
-			 for (com in arr) {
-			     
-				com.getLocalMatrix().translate(20, 0);
-				 
-			 }
-			 
-
-			  
-        });
-
 		
-		
+
+		var camera:Camera2D = new Camera2D(container, new Point(1000,600));
+		camera.target = target;
 		 var font = new Font(pack, "tinyfont");
         System.root.addChild(new Entity()
             .add(new TextSprite(font))
             .add(new FpsDisplay()));
+		
+			 System.root.addChild(new Entity()
+                .add(camera));
     }
 }

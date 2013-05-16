@@ -1,11 +1,12 @@
 package flambe.display.camera;
 import flambe.animation.AnimatedFloat;
+import flambe.Component;
 import flambe.display.Sprite;
 import flambe.Entity;
 import flambe.math.FMath;
 import flambe.math.Rectangle;
 import flambe.System;
-
+import flambe.math.Point;
 import flambe.math.Matrix;
 using flambe.EntityHelper;
 
@@ -13,7 +14,7 @@ using flambe.EntityHelper;
  * ...
  * @author sonygod
  */
-class Camera2D
+class Camera2D extends Component
 {
 
 	@:isVar public var x(get, set) :AnimatedFloat ;
@@ -26,7 +27,11 @@ class Camera2D
 	@:isVar public var rx(get, null) :Float ;
 	@:isVar public var ry(get, null) :Float ;
 	
+	@:isVar public var target(get, set) :Sprite ;
+	
 	@:isVar public var radAngle(get, null) :Float ;
+	
+	@:isVar public var mapSize(get, set) :Point ;
 	private var canvas:Entity;
 	private var viewPort:Rectangle;
 	private var anchor:Anchor;
@@ -36,10 +41,12 @@ class Camera2D
 	private var _y:AnimatedFloat;
 	private var _angle:AnimatedFloat;
 	private var _zoom:AnimatedFloat;
+	private var _mapSize:Point;
 	
 	
 	private var unuse:Sprite;
-	public function new(canvas:Entity,viewPort:Rectangle,?anchor:Anchor=null) 
+	private var _target:Sprite;
+	public function new(canvas:Entity,mapSize:Point,?viewPort:Rectangle=null,?anchor:Anchor=null) 
 	{
 		this.canvas = canvas;
 		if(anchor!=null)
@@ -51,6 +58,12 @@ class Camera2D
 		else
 		this.viewPort=new Rectangle(0, 0, System.stage.width, System.stage.height);
 	locked = false;
+		
+		_x = new AnimatedFloat(0);
+		_y = new AnimatedFloat(0);
+		_zoom = new AnimatedFloat(1);
+		_angle = new AnimatedFloat(0);
+		this.mapSize = mapSize;
 		}
 	
 	public function lock():Void {
@@ -73,9 +86,13 @@ class Camera2D
 		return _x;
 	}
 	
+	private function limit(num:Float, all:Float, r:Float) : Float
+		{
+			return FMath.clamp(num, r, all / zoom._ - r);
+		}
 	private function get_y():AnimatedFloat {
 		
-		return _x;
+		return _y;
 	}
 	
 	private function set_y(v:AnimatedFloat):AnimatedFloat {
@@ -105,7 +122,7 @@ class Camera2D
 		_angle = v;
 		
 		update();
-		return _x;
+		return v;
 	}
 	
 	   private function limitX() : Void
@@ -115,14 +132,14 @@ class Camera2D
 			
 			
 	
-			_x = new AnimatedFloat(FMath.clamp(x._,viewPort.width, rx));
+			_x = new AnimatedFloat(limit(_x._,mapSize.x, rx));
 		}
 		
 		private function limitY() : Void
 		{
 			// necessary
 			canvas.applychildsProperty("scaleY", zoom);//canvas.scaleY = zoom;
-			_y = new AnimatedFloat(FMath.clamp(y._, viewPort.height, ry));
+			_y = new AnimatedFloat(limit(_y._, mapSize.y, ry));
 		}
 	
 	  private function fullUpdate() : Void
@@ -137,10 +154,11 @@ class Camera2D
 				return;
 			
 			var m:Matrix = new Matrix();
-			
+			trace( -x._, -y._);
 			m.translate(-x._,-y._);
 			m.rotate(radAngle);
 			m.scale(zoom._, zoom._);
+			trace(rx * zoom._, ry * zoom._);
 			m.translate(rx * zoom._, ry * zoom._);
 
 			//canvas.transform.matrix = m;
@@ -170,4 +188,36 @@ class Camera2D
 		{
 			return viewportHeight * anchor.v;
 		}
+		
+		override public function onUpdate (dt :Float)
+    {
+		if (_target != null) {
+			x = _target.x;//.update(dt);
+			y = _target.y;//.update(dt);
+			
+			x.update(dt);
+			y.update(dt);
+			
+           update();
+		}
+		  
+    }
+	
+	public function set_target(target:Sprite):Sprite {
+		_target = target;
+		return _target;
+	}
+	public function get_target():Sprite {
+		return _target;
+	}
+	
+	public function set_mapSize(v:Point):Point {
+		_mapSize= v;
+		return v;
+	}
+	public function get_mapSize():Point {
+		
+		return _mapSize;
+	}
+	    
 }
