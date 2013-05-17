@@ -162,7 +162,7 @@ class Camera2D extends Component
 			m.translate(rx * zoom._, ry * zoom._);
 
 			//canvas.transform.matrix = m;
-			canvas.applychildsMatrix(m);
+		//	canvas.applychildsMatrix(m);
 		}
 		private function get_radAngle() : Float
 		{

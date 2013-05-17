@@ -1,0 +1,88 @@
+package flambe.display.camera;
+
+import flambe.animation.AnimatedFloat;
+import flambe.Component;
+import flambe.display.Sprite;
+import flambe.Entity;
+import flambe.math.Rectangle;
+import flambe.System;
+using flambe.EntityHelper;
+
+/**
+ * ...
+ * @author sonygod
+ */
+class GCamera extends Component
+{
+   private var canvas:Entity;
+   private var _bound:Rectangle;
+     private var _lastX:Float;
+    private var _lastY:Float;
+	 private var _lastZoomAmount:Float;
+	 private var tgtx:Float;
+	 private var tgty:Float;
+	 private var duration:Float;
+	
+	 
+	public function new(canvas:Entity,bound:Rectangle) 
+	{
+		this.canvas = canvas;
+		this._bound = bound;
+		
+		
+		
+		
+		
+	}
+	
+	 public  function to(toX:Float, toY:Float, zoomAmount:Float, duration:Float):Void{
+        var xx:Float = (toX * zoomAmount);
+        var yy:Float = (toY * zoomAmount);
+        var hx:Float = (System.stage.width / 2);
+        var hy:Float = (System.stage.height / 2);
+        if ((xx - (this._bound.left * zoomAmount)) < hx){
+            xx = ((this._bound.left * zoomAmount) + hx);
+        } else {
+            if (((this._bound.right * zoomAmount) - xx) < hx){
+                xx = ((this._bound.right * zoomAmount) - hx);
+            };
+        };
+        if ((yy - (this._bound.top * zoomAmount)) < hy){
+            yy = ((this._bound.top * zoomAmount) + hy);
+        } else {
+            if (((this._bound.bottom * zoomAmount) - yy) < hy){
+                yy = ((this._bound.bottom * zoomAmount) - hy);
+            };
+        };
+        tgtx= ((System.stage.width * 0.5) - xx);
+        tgty = ((System.stage.height * 0.5) - yy);
+		
+		
+		
+		 var child :Entity = canvas.firstChild;
+      while (child != null) {
+      var next = child.next; 
+	 
+	  var sp:Sprite = cast  child.firstComponent;
+	  sp.x.animateBy(tgtx, duration);
+	  sp.y.animateBy(tgty, duration);
+	  sp.scaleX.animateTo(zoomAmount, duration);
+	  sp.scaleY.animateTo(zoomAmount, duration);
+	
+	
+      child = next;
+		 
+	 }
+		
+		this._lastX = toX;
+        this._lastY = toY;
+        this._lastZoomAmount = zoomAmount;
+     }
+	 
+	 
+	
+	 
+	
+	 
+	 
+}

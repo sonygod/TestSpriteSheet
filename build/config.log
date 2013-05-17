@@ -1,6 +1,6 @@
-# project  configured on Thu May 16 11:54:19 2013 by
+# project  configured on Fri May 17 15:19:44 2013 by
 # waf 1.6.11 (abi 98, python 20700f0 on win32)
-# using C:\Motion-Twin\haxe\lib\flambe\3,0\bin\waf --flashdevelop=debug -j1 configure install
+# using C:\Motion-Twin\haxe\lib\flambe\3,0\bin\waf --flashdevelop=release -j1 configure install
 #
 ----------------------------------------
 Setting top to

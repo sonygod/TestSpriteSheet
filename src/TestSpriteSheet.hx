@@ -1,5 +1,6 @@
 
 import flambe.display.camera.Camera2D;
+import flambe.display.camera.GCamera;
 import flambe.display.Sprite;
 import flambe.math.Point;
 import flambe.math.Rectangle;
@@ -23,6 +24,7 @@ import flambe.Component;
 
 class TestSpriteSheet {
 	var ddd:Camera2D;
+	var dddd:GCamera;
     private static function main() {
         System.init();
 
@@ -57,9 +59,11 @@ class TestSpriteSheet {
        var ts:TileSheetHelper=new TileSheetHelper();
         var ats:AnimTextureSheet= ts.prepareAnimTexture(pack.getFile("remiWalk.json",true)) ;
         var arr:Array<Sprite> = [];
-		var target:Sprite=null;
-        for (ii in 0...10) {
+		var target:Sprite = null;
+		container.add(new Sprite());
+        for (ii in 0...100) {
             var tentacle:Entity = new Entity() ;
+			
           //  .add(new AnimSprite(pack.loadTexture("remiWalk.png")));
 
         var as:AnimSprite=  new AnimSprite(pack.getTexture("remiWalk"));
@@ -75,7 +79,7 @@ class TestSpriteSheet {
 			target = sprite;	
 			}
            sprite.x._ =  sprite.getNaturalWidth()*(ii+1);
-           sprite.y._ =  200;//sprite.getNaturalHeight()*(ii+1);
+           sprite.y._ =  sprite.getNaturalHeight()*(ii+1)*0.2;
            arr.push(sprite);
   
 		   
@@ -87,15 +91,26 @@ class TestSpriteSheet {
 			
         }
 		
+		/*var parent:Sprite = target.getParentSprite();
+		
+		if (parent!=null) {
+			
+			parent.x._ = -200;
+		}*/
+	   
 
-		var camera:Camera2D = new Camera2D(container, new Point(1000,600));
-		camera.target = target;
+		
+	  var camera:GCamera = new GCamera(container, new Rectangle(0, 0, 5000, 5000));
+	   
+	   
 		 var font = new Font(pack, "tinyfont");
         System.root.addChild(new Entity()
             .add(new TextSprite(font))
             .add(new FpsDisplay()));
 		
-			 System.root.addChild(new Entity()
+			System.root.addChild(new Entity()
                 .add(camera));
+		
+				camera.to(2000, 1000, 1, 100);
     }
 }
