@@ -1,1 +1,28 @@
-This file was created by IntelliJ IDEA 11.1.3 for binding GitHub repository
+this is the flambe plugin 
+include 
+1:TexturePack spriteSheet 
+2:Game Camera.
+
+how to use? you can check TestSpriteSheet.hx  build and run it.
+TexturePack  mini example :
+
+     step1:parse your  json file first 
+	    var ts:TileSheetHelper=new TileSheetHelper();
+        var ats:AnimTextureSheet= ts.prepareAnimTexture(pack.getFile("remiWalk.json",true)) ;
+	step2: add your animation sprite 
+		     var as:AnimSprite=  new AnimSprite(pack.getTexture("remiWalk"));
+            
+            as.initialize(ats);
+            as.addSequence("all",[0,1,2,3,4,5,6,7,8,9,10,11],24);
+            as.play("all");
+            as.centerAnchor();
+	step3: add to Entity
+	           
+		   tentacle.add(as);
+		   
+knowing bug 
+ camera for html5 is wrong result .will fixed.
+		   
+		
+		
+		

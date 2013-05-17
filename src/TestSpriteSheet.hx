@@ -1,5 +1,5 @@
 
-import flambe.display.camera.Camera2D;
+
 import flambe.display.camera.GCamera;
 import flambe.display.Sprite;
 import flambe.math.Point;
@@ -23,8 +23,7 @@ import flambe.Component;
 
 
 class TestSpriteSheet {
-	var ddd:Camera2D;
-	var dddd:GCamera;
+	
     private static function main() {
         System.init();
 

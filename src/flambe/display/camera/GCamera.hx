@@ -6,24 +6,28 @@ import flambe.display.Sprite;
 import flambe.Entity;
 import flambe.math.Rectangle;
 import flambe.System;
-using flambe.EntityHelper;
+
 
 /**
- * ...
+ * camera for game 
  * @author sonygod
  */
 class GCamera extends Component
 {
-   private var canvas:Entity;
-   private var _bound:Rectangle;
+     private var canvas:Entity;
+     private var _bound:Rectangle;
      private var _lastX:Float;
-    private var _lastY:Float;
+     private var _lastY:Float;
 	 private var _lastZoomAmount:Float;
 	 private var tgtx:Float;
 	 private var tgty:Float;
 	 private var duration:Float;
 	
-	 
+	/**
+	 * initialize the camera for game 
+	 * @param	canvas  the main container of game 
+	 * @param	bound    the viewport of the game 
+	 */ 
 	public function new(canvas:Entity,bound:Rectangle) 
 	{
 		this.canvas = canvas;
@@ -34,7 +38,13 @@ class GCamera extends Component
 		
 		
 	}
-	
+	/**
+	 * moving your camera to destination location 
+	 * @param	toX  destination x
+	 * @param	toY   destination y
+	 * @param	zoomAmount  destination zoom
+	 * @param	duration  same as tweenlite's duration
+	 */
 	 public  function to(toX:Float, toY:Float, zoomAmount:Float, duration:Float):Void{
         var xx:Float = (toX * zoomAmount);
         var yy:Float = (toY * zoomAmount);
