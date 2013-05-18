@@ -60,7 +60,7 @@ class TestSpriteSheet {
         var arr:Array<Sprite> = [];
 		var target:Sprite = null;
 		container.add(new Sprite());
-        for (ii in 0...10) {
+        for (ii in 0...1000) {
             var tentacle:Entity = new Entity() ;
 			
          

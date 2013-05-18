@@ -192,12 +192,15 @@ class AnimSprite extends Sprite {
     var fakeElapsed:Float;
     override public function onUpdate (dt :Float)
     {
-
+        
         super.onUpdate(dt);
+		
         updateAnimation();
         }
 
     public function updateAnimation():Void {
+		if (isOutScreen())
+		 return;
         if (curAnim != null && curAnim.delay > 0 && !donePlaying) {
 
             frameTimer += fakeElapsed;
@@ -238,7 +241,9 @@ class AnimSprite extends Sprite {
     public var texture :Texture;
     override public function draw(ctx:Graphics) {
       //  var frame:FrameData=mAnimSheet.getFrameData(curIndex);
-
+      
+	  if (isOutScreen())
+	  return;
 
       var data:FrameData=mAnimSheet.getFrameData(curIndex);
 
