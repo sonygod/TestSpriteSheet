@@ -60,10 +60,10 @@ class TestSpriteSheet {
         var arr:Array<Sprite> = [];
 		var target:Sprite = null;
 		container.add(new Sprite());
-        for (ii in 0...100) {
+        for (ii in 0...10) {
             var tentacle:Entity = new Entity() ;
 			
-          //  .add(new AnimSprite(pack.loadTexture("remiWalk.png")));
+         
 
         var as:AnimSprite=  new AnimSprite(pack.getTexture("remiWalk"));
 
@@ -73,12 +73,13 @@ class TestSpriteSheet {
             as.centerAnchor();
             tentacle.add(as);
            /* .add(new Draggable());*/
-            var sprite:Sprite = tentacle.get(AnimSprite);
+            var sprite:AnimSprite = tentacle.get(AnimSprite);
 			if (target==null) {
 			target = sprite;	
 			}
+			trace( sprite.getNaturalWidth()*(ii+1),sprite.getNaturalHeight()*(ii+1));
            sprite.x._ =  sprite.getNaturalWidth()*(ii+1);
-           sprite.y._ =  sprite.getNaturalHeight()*(ii+1)*0.2;
+           sprite.y._ = 100 + ii * 0.01;// sprite.getNaturalHeight() * (ii + 1);
            arr.push(sprite);
   
 		   
@@ -110,6 +111,6 @@ class TestSpriteSheet {
 			System.root.addChild(new Entity()
                 .add(camera));
 		
-				camera.to(2000, 1000, 1, 100);
+				camera.to(5000, 100, 1, 100);
     }
 }
