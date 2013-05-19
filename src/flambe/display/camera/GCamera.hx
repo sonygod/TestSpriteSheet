@@ -76,7 +76,9 @@ class GCamera extends Component
 		 
 		 if (child!=null) {
 			 child.x.animateBy(tgtx,duration);
-			 child.y.animateBy(tgty,duration);
+			 child.y.animateBy(tgty, duration);
+			 child.scaleX.animateTo(zoomAmount, duration);
+			 child.scaleY.animateTo(zoomAmount, duration);
 		 }
   
 		

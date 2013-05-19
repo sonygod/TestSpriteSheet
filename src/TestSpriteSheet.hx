@@ -93,12 +93,7 @@ class TestSpriteSheet {
 			
         }
 		
-		var parent:Sprite = target.getParentSprite();
 		
-		if (parent!=null) {
-			
-			//parent.y._ = 400;
-		}
 	   
 
 		
@@ -113,6 +108,6 @@ class TestSpriteSheet {
 			System.root.addChild(new Entity()
                 .add(camera));
 		
-			camera.to(1500, 100, 1, 12);
+			camera.to(1500, 100, 1.2, 12);
     }
 }
