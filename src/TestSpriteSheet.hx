@@ -60,7 +60,9 @@ class TestSpriteSheet {
         var arr:Array<Sprite> = [];
 		var target:Sprite = null;
 		container.add(new Sprite());
-        for (ii in 0...1000) {
+		container.addChild( new Entity()
+		              .add(new ImageSprite(pack.getTexture("bg"))));
+        for (ii in 0...10) {
             var tentacle:Entity = new Entity() ;
 			
          
@@ -77,12 +79,12 @@ class TestSpriteSheet {
 			if (target==null) {
 			target = sprite;	
 			}
-			trace( sprite.getNaturalWidth()*(ii+1),sprite.getNaturalHeight()*(ii+1));
-           sprite.x._ =  sprite.getNaturalWidth()*(ii+1);
-           sprite.y._ = 100 + ii * 0.01;// sprite.getNaturalHeight() * (ii + 1);
+			//trace( sprite.getNaturalWidth()*(ii+1),sprite.getNaturalHeight()*(ii+1));
+           sprite.x._ = sprite.getNaturalWidth()*(ii+1)+200;
+           sprite.y._ = 300 + ii * 50;// sprite.getNaturalHeight() * (ii + 1);
            arr.push(sprite);
   
-		   
+		   sprite.x.animateTo(1500,11);
 		   
 		   
             container.addChild(tentacle);
@@ -91,12 +93,12 @@ class TestSpriteSheet {
 			
         }
 		
-		/*var parent:Sprite = target.getParentSprite();
+		var parent:Sprite = target.getParentSprite();
 		
 		if (parent!=null) {
 			
-			parent.x._ = -200;
-		}*/
+			//parent.y._ = 400;
+		}
 	   
 
 		
@@ -111,6 +113,6 @@ class TestSpriteSheet {
 			System.root.addChild(new Entity()
                 .add(camera));
 		
-				camera.to(5000, 100, 1, 100);
+			camera.to(1500, 100, 1, 12);
     }
 }

@@ -22,6 +22,9 @@ class GCamera extends Component
 	 private var tgtx:Float;
 	 private var tgty:Float;
 	 private var duration:Float;
+	 private var readyToX:Float;
+	 private var readyToY:Float;
+	 
 	
 	/**
 	 * initialize the camera for game 
@@ -69,26 +72,21 @@ class GCamera extends Component
 		
 		
 		
-		 var child :Entity = canvas.firstChild;
-      while (child != null) {
-      var next = child.next; 
-	 
-	  var sp:Sprite = cast  child.firstComponent;
-	  sp.x.animateBy(tgtx, duration);
-	  sp.y.animateBy(tgty, duration);
-	  sp.scaleX.animateTo(zoomAmount, duration);
-	  sp.scaleY.animateTo(zoomAmount, duration);
-	
-	
-      child = next;
+		 var child :Sprite =cast  canvas.firstComponent;
 		 
-	 }
+		 if (child!=null) {
+			 child.x.animateBy(tgtx,duration);
+			 child.y.animateBy(tgty,duration);
+		 }
+  
 		
 		this._lastX = toX;
         this._lastY = toY;
         this._lastZoomAmount = zoomAmount;
      }
 	 
+	 
+	
 	 
 	
 	 
