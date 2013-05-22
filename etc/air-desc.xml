@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <application xmlns="http://ns.adobe.com/air/application/3.2">
+
+   <!-- aspectRatio の値を landscape または portrate-->
     <id>flambe.camera</id>
     <versionNumber>1.0.0</versionNumber>
     <filename>camera Demo</filename>
