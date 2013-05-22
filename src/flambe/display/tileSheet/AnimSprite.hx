@@ -234,6 +234,8 @@ class AnimSprite extends Sprite {
         dirty = false;
        // needDraw=true;
      //  trace(curIndex);
+	 
+	    anchorY._ = getNaturalHeight();
     }
 
 

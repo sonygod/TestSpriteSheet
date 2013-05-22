@@ -26,6 +26,30 @@ class TileSheetHelper extends Component {
         return tileSheet;
     }
 
+	
+	 public function prepareShoesAnimTexture(data:String):AnimTextureSheet {
+      
+
+        var animData:Array<FrameData> = new Array<FrameData>();
+      
+		var xml = Xml.parse(data);
+		var fast = new haxe.xml.Fast(xml.firstElement());
+		
+		
+		//SubTexture
+		
+		var phone = fast.nodes.SubTexture;
+		
+		
+		for ( p in phone) {
+			
+			animData.push( { x:cast p.att.x, y: cast p.att.y, w:cast p.att.width, h: cast p.att.height, offX:0, offY:0 ,id:p.att.name.substring(0,p.att.name.lastIndexOf(".png"))} );//
+		}
+        
+        var tileSheet:AnimTextureSheet = new AnimTextureSheet();
+        tileSheet.init(animData);
+        return tileSheet;
+    }
 
     function onShort(ad:FrameData,bd:FrameData):Int{
       var    a :String=ad.id.toLowerCase();
