@@ -4,8 +4,10 @@ import flambe.animation.AnimatedFloat;
 import flambe.Component;
 import flambe.display.Sprite;
 import flambe.Entity;
+import flambe.input.Pointer;
 import flambe.math.Rectangle;
 import flambe.System;
+import flambe.math.Point;
 
 
 /**
@@ -37,7 +39,8 @@ class GCamera extends Component
 		this._bound = bound;
 		
 		
-		
+		tgtx = 0;
+		tgty = 0;
 		
 		
 	}
@@ -90,9 +93,38 @@ class GCamera extends Component
 	 
 	
 	 
-	
+	 public function onScreen(target:Sprite):Bool {
+		 
+		 var child :Sprite =cast  canvas.firstComponent;
+		 
+		 if (child != null) {
+			 
+			 return child.x._ +tgtx<=target.x._||child.x._+tgtx+System.stage.width>=target.x._;
+		 }
+		 
+		 return false;
+		 
+	 }
 	 
 	
+	 public function toPoint(p:Pointer,?toCamara:Bool=true):Point{
+		 
+		 var child :Sprite =cast  canvas.firstComponent;
+		 
+		 if (child != null) {
+			 
+			 if (toCamara) {
+				 
+				 return new Point(child.x._ +tgtx + p.x,child.y._+tgty+p.y);
+				 
+			 }else {
+				
+				  return new Point(p.x-child.x._ -tgtx ,p.y-child.y._-tgty);
+			 }
+		 }
+		 
+		 return null;
+	 }
 	 
 	 
 }

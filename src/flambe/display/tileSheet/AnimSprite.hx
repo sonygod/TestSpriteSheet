@@ -6,6 +6,7 @@ import flambe.display.Sprite;
 
 import flambe.display.tileSheet.Format;
 import flambe.display.Graphics;
+using flambe.YSort;
 
 // =============================  Created by: Amos Laber, Dec 2, 2011
 //
@@ -45,13 +46,20 @@ class AnimSprite extends Sprite {
 
 
 
-        this.texture=texture;
+        this.texture = texture;
+		
+		y.changed.connect(ySort);
 
 
 
     }
 
-
+   
+	private function ySort(_, _):Void {
+		
+		if(owner!=null)
+		owner.ySort();
+	}
 
     public function initialize(sheet:AnimTextureSheet):Void {
         if (sheet == null)

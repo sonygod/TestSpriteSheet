@@ -7,12 +7,15 @@ using Reflect;
 class YSort
 {
 
-	public static function yShot(l:Entity) {
+	public static function ySort(l:Entity) :Void{
 		
 		
 	 var  p :Entity= l;    //p,q用来维护插入位置的前后指针  
      var q :Entity= l.next;  
      var r:Entity = q;    //r,s用来维护当前带插入的前后指针  
+	 if (r == null) {
+	 return ; }
+	 
      var  s :Entity= r.next;  
         while(s!=null)  
         {  

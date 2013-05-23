@@ -24,6 +24,8 @@ import flambe.Component;
 
 class TestSpriteSheet {
 	
+	private static var container:Entity;
+	private static var pack:AssetPack;
     private static function main() {
         System.init();
 
@@ -51,53 +53,26 @@ class TestSpriteSheet {
         System.root.addChild(new Entity()
         .add(new FillSprite(0x303030, System.stage.width, System.stage.height)));
 		
-		
+		TestSpriteSheet.pack = pack;
 
-		var container:Entity = new Entity();
+		  container= new Entity();
 		 System.root.addChild(container);
-        var ts:TileSheetHelper=new TileSheetHelper();
-        var ats:AnimTextureSheet= ts.prepareShoesAnimTexture(pack.getFile("sheet.xml",true)) ;
-        var arr:Array<Sprite> = [];
-		var target:Sprite = null;
+       
 		container.add(new Sprite());
 		container.addChild( new Entity()
 		              .add(new ImageSprite(pack.getTexture("bg"))));
-        for (ii in 0...4) {
-            var tentacle:Entity = new Entity() ;
-			
-         
-
-        var as:AnimSprite=  new AnimSprite(pack.getTexture("sheet"));
-
-        as.initialize(ats);
-            as.addSequence("all",[0,1,2,3,4,5,6,7,8,9,10,11],24);
-            as.play("all");
-            as.centerAnchor();
-            tentacle.add(as);
-           /* .add(new Draggable());*/
-            var sprite:AnimSprite = tentacle.get(AnimSprite);
-			if (target==null) {
-			target = sprite;	
-			}
-			//trace( sprite.getNaturalWidth()*(ii+1),sprite.getNaturalHeight()*(ii+1));
-           sprite.x._ = sprite.getNaturalWidth() +ii * 2;
-           sprite.y._ = 400 - ii * 50;// sprite.getNaturalHeight() * (ii + 1);
-           arr.push(sprite);
-  
-		  // sprite.x.animateTo(1500,11);
-		   
-		   
-            container.addChild(tentacle);
-			
-		
-			
-        }
-		
+       
+			addAmination("car", [ 0,1, 2], 16, new Point(1500, 350), new Point(100, 450), 20,1.5);		  
+			var bird:AnimSprite = addAmination("bird", [ 1, 2, 3, 4, 5, 6], 6, new Point(100, 500), new Point(1600, 100), 10, 1.5);		
+			bird.scaleX._ = -1;
+		addAmination("guanyu", [ 1, 2, 3, 4, 5], 10, new Point(100, 400), new Point(1600, 400), 11,1.5);
+		addAmination("weiyang", [1, 2, 3, 4, 5,7,8,9,10,11,12,13,14,15,16,17,18,19,20], 10, new Point(100, 450), new Point(1500, 450),5,1.5);
 		
 	   
+addAmination("sheet", [ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 16, new Point(800, 470), new Point(900, 470), 20, 1);
 
 		
-	  //var camera:GCamera = new GCamera(container, new Rectangle(0, 0, 5000, 5000));
+	  var camera:GCamera = new GCamera(container, new Rectangle(0, 0, 5000, 5000));
 	   
 	   
 		 var font = new Font(pack, "tinyfont");
@@ -105,9 +80,43 @@ class TestSpriteSheet {
             .add(new TextSprite(font))
             .add(new FpsDisplay()));
 		
-		//	System.root.addChild(new Entity()
-            //    .add(camera));
+			System.root.addChild(new Entity()
+                .add(camera));
 		
-			//camera.to(1500, 100, 1.2, 12);
+			camera.to(1500, 100, 1, 12);
     }
+	
+	public static function addAmination(name:String, frames:Array<Int>,fps:Int,fromPoint:Point,toPoint:Point,speed:Int,scale:Float):AnimSprite {
+		var tentacle:Entity = new Entity() ;
+		var ts:TileSheetHelper=new TileSheetHelper();
+        var ats:AnimTextureSheet= ts.prepareShoesAnimTexture(pack.getFile(name+".xml",true)) ;
+        var arr:Array<Sprite> = [];
+		var target:Sprite = null;
+         
+
+        var as:AnimSprite=  new AnimSprite(pack.getTexture(name));
+
+        as.initialize(ats);
+            as.addSequence("all",frames,fps);
+            as.play("all");
+            as.centerAnchor();
+            tentacle.add(as);
+			as.setScale(scale);
+           /* .add(new Draggable());*/
+            var sprite:AnimSprite = tentacle.get(AnimSprite);
+			
+			//trace( sprite.getNaturalWidth()*(ii+1),sprite.getNaturalHeight()*(ii+1));
+           sprite.x._ = fromPoint.x;
+           sprite.y._ = fromPoint.y;// sprite.getNaturalHeight() * (ii + 1);
+           
+  
+		   sprite.x.animateTo(toPoint.x,speed);
+		   
+		   sprite.y.animateTo(toPoint.y,speed);
+            container.addChild(tentacle);
+			return  sprite;
+	}
+	
+	
+	
 }
