@@ -1,0 +1,9 @@
+<TextureAtlas imagePath="@TexName.png">
+	<SubTexture name="13_000.png" x="141" y="167" width="134" height="108"/>
+	<SubTexture name="13_001.png" x="167" y="0" width="112" height="101"/>
+	<SubTexture name="13_002.png" x="0" y="73" width="165" height="53"/>
+	<SubTexture name="13_003.png" x="0" y="128" width="157" height="37"/>
+	<SubTexture name="13_004.png" x="0" y="167" width="139" height="47"/>
+	<SubTexture name="13_005.png" x="0" y="0" width="165" height="71"/>
+	<SubTexture name="13_006.png" x="141" y="167" width="134" height="108"/>
+</TextureAtlas>
