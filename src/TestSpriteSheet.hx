@@ -55,19 +55,19 @@ class TestSpriteSheet {
 
 		var container:Entity = new Entity();
 		 System.root.addChild(container);
-       var ts:TileSheetHelper=new TileSheetHelper();
-        var ats:AnimTextureSheet= ts.prepareAnimTexture(pack.getFile("remiWalk.json",true)) ;
+        var ts:TileSheetHelper=new TileSheetHelper();
+        var ats:AnimTextureSheet= ts.prepareShoesAnimTexture(pack.getFile("sheet.xml",true)) ;
         var arr:Array<Sprite> = [];
 		var target:Sprite = null;
 		container.add(new Sprite());
 		container.addChild( new Entity()
 		              .add(new ImageSprite(pack.getTexture("bg"))));
-        for (ii in 0...10) {
+        for (ii in 0...4) {
             var tentacle:Entity = new Entity() ;
 			
          
 
-        var as:AnimSprite=  new AnimSprite(pack.getTexture("remiWalk"));
+        var as:AnimSprite=  new AnimSprite(pack.getTexture("sheet"));
 
         as.initialize(ats);
             as.addSequence("all",[0,1,2,3,4,5,6,7,8,9,10,11],24);
@@ -80,11 +80,11 @@ class TestSpriteSheet {
 			target = sprite;	
 			}
 			//trace( sprite.getNaturalWidth()*(ii+1),sprite.getNaturalHeight()*(ii+1));
-           sprite.x._ = sprite.getNaturalWidth()*(ii+1)+200;
-           sprite.y._ = 300 + ii * 50;// sprite.getNaturalHeight() * (ii + 1);
+           sprite.x._ = sprite.getNaturalWidth() +ii * 2;
+           sprite.y._ = 400 - ii * 50;// sprite.getNaturalHeight() * (ii + 1);
            arr.push(sprite);
   
-		   sprite.x.animateTo(1500,11);
+		  // sprite.x.animateTo(1500,11);
 		   
 		   
             container.addChild(tentacle);
@@ -97,7 +97,7 @@ class TestSpriteSheet {
 	   
 
 		
-	  var camera:GCamera = new GCamera(container, new Rectangle(0, 0, 5000, 5000));
+	  //var camera:GCamera = new GCamera(container, new Rectangle(0, 0, 5000, 5000));
 	   
 	   
 		 var font = new Font(pack, "tinyfont");
@@ -105,9 +105,9 @@ class TestSpriteSheet {
             .add(new TextSprite(font))
             .add(new FpsDisplay()));
 		
-			System.root.addChild(new Entity()
-                .add(camera));
+		//	System.root.addChild(new Entity()
+            //    .add(camera));
 		
-			camera.to(1500, 100, 1.2, 12);
+			//camera.to(1500, 100, 1.2, 12);
     }
 }
