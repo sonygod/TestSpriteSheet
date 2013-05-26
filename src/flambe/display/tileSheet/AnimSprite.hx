@@ -48,18 +48,14 @@ class AnimSprite extends Sprite {
 
         this.texture = texture;
 		
-		y.changed.connect(ySort);
+		
 
 
 
     }
 
    
-	private function ySort(_, _):Void {
-		
-		if(owner!=null)
-		owner.ySort();
-	}
+	
 
     public function initialize(sheet:AnimTextureSheet):Void {
         if (sheet == null)
@@ -204,8 +200,13 @@ class AnimSprite extends Sprite {
         super.onUpdate(dt);
 		
         updateAnimation();
+		
+		
         }
 
+		public function isOutScreen():Bool {
+			return false;
+		}
     public function updateAnimation():Void {
 		if (isOutScreen())
 		 return;

@@ -1,16 +1,35 @@
 package flambe;
+import haxe.Timer;
+import flambe.Component;
 using Reflect;
 /**
  * ...
  * @author ...
  */
-class YSort
+class YSort extends Component
 {
-
-	public static function ySort(l:Entity) :Void{
+    private var eachTime:Float ;//= 1;
+	private var startTime:Float ;//= 0;
+	public function new () {
+		eachTime = 5;
+		startTime = 0;
 		
+	}
+	
+	
+	override public function onUpdate(dt:Float):Void
+	{
+		super.onUpdate(dt);
 		
-	 var  p :Entity= l;    //p,q用来维护插入位置的前后指针  
+		if (startTime < eachTime) {
+			startTime += dt;
+			return;
+		}
+		startTime = 0;
+		 var  p :Entity = this.owner;    //p,q用来维护插入位置的前后指针  
+		 var l:Entity = this.owner;
+	 if (p == null)
+	 return ;
      var q :Entity= l.next;  
      var r:Entity = q;    //r,s用来维护当前带插入的前后指针  
 	 if (r == null) {
@@ -46,6 +65,7 @@ class YSort
         }
 		
 	}
+	
 	
 	
 	

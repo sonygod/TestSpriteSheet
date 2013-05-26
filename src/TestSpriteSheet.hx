@@ -2,8 +2,16 @@
 
 import flambe.display.camera.GCamera;
 import flambe.display.Sprite;
+import flambe.math.FMath;
 import flambe.math.Point;
 import flambe.math.Rectangle;
+import flambe.script.CameraMove;
+import flambe.script.Delay;
+import flambe.script.Parallel;
+import flambe.script.Repeat;
+import flambe.script.Script;
+import flambe.script.Sequence;
+import haxe.Timer;
 
 import flambe.display.tileSheet.AnimTextureSheet;
 import flambe.display.tileSheet.TileSheetHelper;
@@ -18,7 +26,9 @@ import flambe.debug.FpsDisplay;
 import flambe.display.Font;
 import flambe.display.TextSprite;
 import flambe.math.Matrix;
+import flambe.script.CallFunction;
 using Lambda;
+using flambe.YSort;
 import flambe.Component;
 
 
@@ -62,17 +72,18 @@ class TestSpriteSheet {
 		container.addChild( new Entity()
 		              .add(new ImageSprite(pack.getTexture("bg"))));
        
-			addAmination("car", [ 0,1, 2], 16, new Point(1500, 350), new Point(100, 450), 20,1.5);		  
+		container.addChild(new Entity().add(new YSort()));
+		 
 			var bird:AnimSprite = addAmination("bird", [ 1, 2, 3, 4, 5, 6], 6, new Point(100, 500), new Point(1600, 100), 10, 1.5);		
 			bird.scaleX._ = -1;
-		addAmination("guanyu", [ 1, 2, 3, 4, 5], 10, new Point(100, 400), new Point(1600, 400), 11,1.5);
-		addAmination("weiyang", [1, 2, 3, 4, 5,7,8,9,10,11,12,13,14,15,16,17,18,19,20], 10, new Point(100, 450), new Point(1500, 450),5,1.5);
 		
+		addAmination("weiyang", [1, 2, 3, 4, 5,7,8,9,10,11,12,13,14,15,16,17,18,19,20], 10, new Point(100, 450), new Point(1500, 450),5,1.5);
+		addAmination("guanyu", [ 1, 2, 3, 4, 5], 10, new Point(100, 400), new Point(1600, 400), 11,1.5);
 	   
 addAmination("sheet", [ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 16, new Point(800, 470), new Point(900, 470), 20, 1);
-
+	var car:AnimSprite=addAmination("car", [ 0,1, 2], 16, new Point(1500, 350), new Point(100, 450), 20,1.5);		 
 		
-	  var camera:GCamera = new GCamera(container, new Rectangle(0, 0, 5000, 5000));
+	  var camera:GCamera = new GCamera(container, new Rectangle(0, 0, 2001, 568));
 	   
 	   
 		 var font = new Font(pack, "tinyfont");
@@ -80,10 +91,63 @@ addAmination("sheet", [ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
             .add(new TextSprite(font))
             .add(new FpsDisplay()));
 		
-			System.root.addChild(new Entity()
-                .add(camera));
+			var cam:Entity=new Entity()
+                .add(camera)
+				.add(new Script());
+			System.root.addChild(cam);
 		
-			camera.to(1500, 100, 1, 12);
+			//camera.to(1500, 100, 1, 12);
+			
+		
+			
+		/*	cam.get(Script).run(new Repeat(new Sequence([
+			  new CameraMove(camera, 1500, 100, 1, 12),
+			  new CameraMove(camera,100,100,1,12)
+			
+			])));*/
+			
+			cam.get(Script).run(
+			new Repeat(
+			new Sequence([
+			 new CallFunction(function () {
+				if (car.x._ > 900) {
+					car.x.animateTo(0, 4);
+				car.scaleX._ = 1.5;
+				}
+				 trace("ready start"); } ),
+				
+			  new Delay(2),
+			  new CameraMove(camera, 800, 100, 1, 4),
+			  new Delay(1),
+			   new CameraMove(camera, 1500, 100, 1, 4),
+			     new Delay(3),
+				new CallFunction(function () {
+					var guanyu2:AnimSprite=addAmination("monster", [ 1, 2, 3, 4, 5], 4, new Point(1600, 400+Math.random()*200), new Point(100, 400+Math.random()*200), 20,1);
+				    guanyu2.scaleX._ = -1;
+				car.x.animateTo(1000, 5);
+				car.scaleX._ = -1.5;
+					}),
+			   new CameraMove(camera, 0, 100, 1, 5),
+			   new Delay(2),
+			   new CallFunction(function () { trace("finish camera!"); } ),
+			
+			])));
+			
+			
+			/*cam.get(Script).run(
+			
+			new Repeat(
+			new Sequence([
+			  new CallFunction(function () { trace("repeat1"); } ),
+			  new Delay(2),
+			   new CallFunction(function () { trace("repeat2"); } ),
+			   new Delay(2),
+			
+			])
+			
+			)
+			);*/
+			
     }
 	
 	public static function addAmination(name:String, frames:Array<Int>,fps:Int,fromPoint:Point,toPoint:Point,speed:Int,scale:Float):AnimSprite {
@@ -111,6 +175,7 @@ addAmination("sheet", [ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
            
   
 		   sprite.x.animateTo(toPoint.x,speed);
+		   
 		   
 		   sprite.y.animateTo(toPoint.y,speed);
             container.addChild(tentacle);

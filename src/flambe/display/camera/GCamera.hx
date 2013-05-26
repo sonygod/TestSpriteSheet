@@ -41,6 +41,8 @@ class GCamera extends Component
 		
 		tgtx = 0;
 		tgty = 0;
+		_lastX = 0;
+		_lastY = 0;
 		
 		
 	}
@@ -56,18 +58,18 @@ class GCamera extends Component
         var yy:Float = (toY * zoomAmount);
         var hx:Float = (System.stage.width / 2);
         var hy:Float = (System.stage.height / 2);
-        if ((xx - (this._bound.left * zoomAmount)) < hx){
-            xx = ((this._bound.left * zoomAmount) + hx);
+        if ((xx - (getBoundLeft(_bound) * zoomAmount)) < hx){
+            xx = ((getBoundLeft(_bound) * zoomAmount) + hx);
         } else {
-            if (((this._bound.right * zoomAmount) - xx) < hx){
-                xx = ((this._bound.right * zoomAmount) - hx);
+            if (((getBoundRight(_bound) * zoomAmount) - xx) < hx){
+                xx = ((getBoundRight(_bound) * zoomAmount) - hx);
             };
         };
-        if ((yy - (this._bound.top * zoomAmount)) < hy){
-            yy = ((this._bound.top * zoomAmount) + hy);
+        if ((yy - (getBoundTop(_bound)* zoomAmount)) < hy){
+            yy = ((getBoundTop(_bound) * zoomAmount) + hy);
         } else {
-            if (((this._bound.bottom * zoomAmount) - yy) < hy){
-                yy = ((this._bound.bottom * zoomAmount) - hy);
+            if (((getBoundBottom(_bound) * zoomAmount) - yy) < hy){
+                yy = ((getBoundBottom(_bound)  * zoomAmount) - hy);
             };
         };
         tgtx= ((System.stage.width * 0.5) - xx);
@@ -78,8 +80,8 @@ class GCamera extends Component
 		 var child :Sprite =cast  canvas.firstComponent;
 		 
 		 if (child!=null) {
-			 child.x.animateBy(tgtx,duration);
-			 child.y.animateBy(tgty, duration);
+			 child.x.animateTo(tgtx,duration);
+			 child.y.animateTo(tgty, duration);
 			 child.scaleX.animateTo(zoomAmount, duration);
 			 child.scaleY.animateTo(zoomAmount, duration);
 		 }
@@ -92,7 +94,18 @@ class GCamera extends Component
 	 
 	 
 	
-	 
+	 private function getBoundLeft(r:Rectangle):Float {
+		 return r.x;
+	 }
+	 private function getBoundRight(r:Rectangle):Float {
+		 return r.x + r.width;
+	 }
+	 private function getBoundTop(r:Rectangle):Float {
+		 return r.y;
+	 }
+	  private function getBoundBottom(r:Rectangle):Float {
+		 return r.y + r.height;
+	 }
 	 public function onScreen(target:Sprite):Bool {
 		 
 		 var child :Sprite =cast  canvas.firstComponent;
