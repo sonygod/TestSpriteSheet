@@ -16,6 +16,7 @@ import flambe.util.Signal1;
 import flambe.util.Value;
 
 using flambe.util.BitSets;
+using flambe.YSort;
 
 class Sprite extends Component
 {
@@ -175,7 +176,7 @@ class Sprite extends Component
 
 	
 	public function isOutScreen():Bool {
-		return (this.x._+getNaturalWidth()<0||this.x._>System.stage.width||this.y._+getNaturalHeight()<0||this.y._>System.stage.height);
+		return false;//(this.x._+getNaturalWidth()<0||this.x._>System.stage.width||this.y._+getNaturalHeight()<0||this.y._>System.stage.height);
 	}
     /**
      * Renders an entity hierarchy to the given Graphics.
@@ -221,10 +222,12 @@ class Sprite extends Component
         }
 
         // Render all children
-        var p = entity.firstChild;
+        var p = entity.childList.head;
+		
+		
         while (p != null) {
             var next = p.next;
-            render(p, g);
+            render(p.val, g);
             p = next;
         }
 
@@ -517,10 +520,10 @@ class Sprite extends Component
         }
 
         // Recurse into all children
-        var p = entity.firstChild;
+        var p = entity.childList.head;
         while (p != null) {
             var next = p.next;
-            getBoundsImpl(p, matrix, result);
+            getBoundsImpl(p.val, matrix, result);
             p = next;
         }
     }

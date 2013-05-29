@@ -204,7 +204,7 @@ class AnimSprite extends Sprite {
 		
         }
 
-		public function isOutScreen():Bool {
+		override public function isOutScreen():Bool {
 			return false;
 		}
     public function updateAnimation():Void {

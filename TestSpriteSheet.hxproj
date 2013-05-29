@@ -16,7 +16,8 @@
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
-    <class path="..\..\..\..\..\Motion-Twin\haxe\lib\flambe\3,0" />
+    <class path="..\..\..\..\..\Motion-Twin\haxe\lib\flambe" />
+    <class path="ds" />
   </classpaths>
   <!-- Build options -->
   <build>

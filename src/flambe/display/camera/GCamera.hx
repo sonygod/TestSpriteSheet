@@ -77,7 +77,7 @@ class GCamera extends Component
 		
 		
 		
-		 var child :Sprite =cast  canvas.firstComponent;
+		 var child :Sprite =cast  canvas.componentList.head.val;
 		 
 		 if (child!=null) {
 			 child.x.animateTo(tgtx,duration);
@@ -108,7 +108,7 @@ class GCamera extends Component
 	 }
 	 public function onScreen(target:Sprite):Bool {
 		 
-		 var child :Sprite =cast  canvas.firstComponent;
+		 var child :Sprite =cast  canvas.componentList.head.val;
 		 
 		 if (child != null) {
 			 
@@ -122,7 +122,7 @@ class GCamera extends Component
 	
 	 public function toPoint(p:Pointer,?toCamara:Bool=true):Point{
 		 
-		 var child :Sprite =cast  canvas.firstComponent;
+		 var child :Sprite =cast  canvas.componentList.head.val;
 		 
 		 if (child != null) {
 			 
