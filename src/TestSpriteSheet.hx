@@ -2,6 +2,7 @@
 
 import flambe.display.camera.GCamera;
 import flambe.display.Sprite;
+import flambe.input.MouseEvent;
 import flambe.math.FMath;
 import flambe.math.Point;
 import flambe.math.Rectangle;
@@ -69,23 +70,31 @@ class TestSpriteSheet {
 		 System.root.addChild(container);
        
 		container.add(new Sprite());
-		container.addChild( new Entity()
-		              .add(new ImageSprite(pack.getTexture("bg"))));
-       
-		container.addChild(new Entity().add(new YSort()));
-		 
-			var bird:AnimSprite = addAmination("bird", [ 1, 2, 3, 4, 5, 6], 6, new Point(100, 500), new Point(1600, 100), 10, 1.5);		
-			bird.scaleX._ = -1;
 		
+		
+		
+		//container.addChild( new Entity()
+		              //.add(new ImageSprite(pack.getTexture("bg"))));
+                       //  .add(bgwater));
+		container.addChild(new Entity().add(new YSort()));
+	  var water:AnimSprite=addAmination("bgwater", [ 0,1, 2, 3, 4, 5,6], 12, new Point(1640/4, 480), new Point(1640/4, 480), 9, 2);
+		water.sort = false;
+		water.scaleX._ = 3.8;
+		water.scaleY._ = 2.5;
+	  var bird:AnimSprite = addAmination("bird", [ 1, 2, 3, 4, 5, 6], 6, new Point(100, 500), new Point(1600, 100), 10, 1.5);		
+			bird.scaleX._ = -1;
+		addAmination("mj1", [ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 12, new Point(0, 470), new Point(1500, 470), 9, 1.5);
 		addAmination("weiyang", [1, 2, 3, 4, 5,7,8,9,10,11,12,13,14,15,16,17,18,19,20], 10, new Point(100, 450), new Point(1500, 450),5,1.5);
 		addAmination("guanyu", [ 1, 2, 3, 4, 5], 10, new Point(100, 400), new Point(1600, 400), 11,1.5);
-	   
-addAmination("sheet", [ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 16, new Point(800, 470), new Point(900, 470), 20, 1);
-	var car:AnimSprite=addAmination("car", [ 0,1, 2], 16, new Point(1500, 350), new Point(100, 450), 20,1.5);		 
+	  var man= addAmination("mus3", [ 1, 2, 3, 4, 5, 7], 12, new Point(1500, 450), new Point(100, 450), 12, 1.5);
+man.scaleX._ = -1.5;
+	var car:AnimSprite=addAmination("car", [ 0,1, 2], 8, new Point(1500, 350), new Point(100, 450), 20,1.5);		 
 		
-	  var camera:GCamera = new GCamera(container, new Rectangle(0, 0, 2001, 568));
+	  var camera:GCamera = new GCamera(container, new Rectangle(0, 0, 1800, 470));
 	   
 	   
+	    var man2= addAmination("monster2", [ 1, 2, 3, 4, 5, 7,8,9,10,11,12,13,14,15], 8, new Point(1800, 450), new Point(1800, 450), 60, 2);
+man2.scaleX._ = -2;
 		 var font = new Font(pack, "tinyfont");
         System.root.addChild(new Entity()
             .add(new TextSprite(font))
@@ -95,8 +104,50 @@ addAmination("sheet", [ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
                 .add(camera)
 				.add(new Script());
 			System.root.addChild(cam);
+			
+			
+			
+			var downPoint:Point;
+			var mouseDown:Bool;
+			var downScreenPoint:Point;
+			System.mouse.down.connect(function (e:MouseEvent):Void {
+				
+				
+				 downPoint = new Point(e.viewX, e.viewY);
+				var point:Point = camera.toPoint(new Point(e.viewX, e.viewY), true);
+				mouseDown = true;
+				downScreenPoint = point;
+				
+			});
+			
+			
+			System.mouse.up.connect(function (e:MouseEvent):Void {
+				
+				  trace(e.viewX, e.viewY);
+				 
+				var point:Point = camera.toPoint(new Point(e.viewX, e.viewY), true);
+				mouseDown = false;
+				downPoint = null;
+				trace(point);
+			});
+			
+			System.mouse.move.connect(function (e:MouseEvent):Void {
+				if (mouseDown) {
+					
+					var dx:Float = e.viewX - downPoint.x;
+					var dy:Float = e.viewY - downPoint.y;
+					
+					//var toPoint = new Point(downScreenPoint.x + dx, downScreenPoint.y + dy);
+					
+					camera.to(downScreenPoint.x - dx, downScreenPoint.y - dy, 1, 1);
+					
+				}
+			});
+			
+	
+			
 		
-			//camera.to(1500, 100, 1, 12);
+			camera.to(1500, 100, 1, 12);
 			
 		
 			
@@ -106,7 +157,7 @@ addAmination("sheet", [ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
 			
 			])));*/
 			
-			cam.get(Script).run(
+			/*cam.get(Script).run(
 			new Repeat(
 			new Sequence([
 			 new CallFunction(function () {
@@ -126,12 +177,14 @@ addAmination("sheet", [ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
 				    guanyu2.scaleX._ = -1;
 				car.x.animateTo(1000, 5);
 				car.scaleX._ = -1.5;
+				man.scaleX._ = 1.5;
+				
 					}),
-			   new CameraMove(camera, 0, 100, 1, 5),
+			   new CameraMove(camera, 100, 100, 1.1, 5),
 			   new Delay(2),
 			   new CallFunction(function () { trace("finish camera!"); } ),
 			
-			])));
+			])));*/
 			
 			
 			/*cam.get(Script).run(
@@ -150,7 +203,7 @@ addAmination("sheet", [ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
 			
     }
 	
-	public static function addAmination(name:String, frames:Array<Int>,fps:Int,fromPoint:Point,toPoint:Point,speed:Int,scale:Float):AnimSprite {
+	public static function addAmination(name:String, frames:Array<Int>,fps:Int,fromPoint:Point,toPoint:Point,speed:Int,scale:Float,?otherContainer:Entity=null):AnimSprite {
 		var tentacle:Entity = new Entity() ;
 		var ts:TileSheetHelper=new TileSheetHelper();
         var ats:AnimTextureSheet= ts.prepareShoesAnimTexture(pack.getFile(name+".xml",true)) ;
@@ -177,8 +230,11 @@ addAmination("sheet", [ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17],
 		   sprite.x.animateTo(toPoint.x,speed);
 		   
 		   
-		   sprite.y.animateTo(toPoint.y,speed);
+		   sprite.y.animateTo(toPoint.y, speed);
+		   if(otherContainer==null)
             container.addChild(tentacle);
+			else
+			otherContainer.addChild(tentacle);
 			return  sprite;
 	}
 	

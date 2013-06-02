@@ -34,7 +34,8 @@ class YSort extends Component
 		var ap:Sprite = cast a.componentList.head.val;
 		var bp:Sprite = cast b.componentList.head.val;
 		
-		if (ap!=null && bp!=null) {
+		if (ap!=null && bp!=null&&ap.sort&&bp.sort) {
+			
 			
 			if (ap.y._ > bp.y._) {
 				return 1;

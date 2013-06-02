@@ -72,7 +72,7 @@ class GCamera extends Component
                 yy = ((getBoundBottom(_bound)  * zoomAmount) - hy);
             };
         };
-        tgtx= ((System.stage.width * 0.5) - xx);
+        tgtx= ((System.stage.width * 0.5)  - xx);
         tgty = ((System.stage.height * 0.5) - yy);
 		
 		
@@ -120,7 +120,7 @@ class GCamera extends Component
 	 }
 	 
 	
-	 public function toPoint(p:Pointer,?toCamara:Bool=true):Point{
+	 public function toPoint(p:Point,?toCamara:Bool=true):Point{
 		 
 		 var child :Sprite =cast  canvas.componentList.head.val;
 		 
@@ -128,7 +128,7 @@ class GCamera extends Component
 			 
 			 if (toCamara) {
 				 
-				 return new Point(child.x._ +tgtx + p.x,child.y._+tgty+p.y);
+				 return new Point(-child.x._ +p.x,-child.y._+p.y);
 				 
 			 }else {
 				
