@@ -120,17 +120,13 @@ man2.scaleX._ = -2;
 	
 			camera.drag = true;
 		
-			camera.to(1500, 100, 1, 12);
+			
 			
 		
 			
-		/*	cam.get(Script).run(new Repeat(new Sequence([
-			  new CameraMove(camera, 1500, 100, 1, 12),
-			  new CameraMove(camera,100,100,1,12)
 			
-			])));*/
 			
-			/*cam.get(Script).run(
+			cam.get(Script).run(
 			new Repeat(
 			new Sequence([
 			 new CallFunction(function () {
@@ -157,7 +153,7 @@ man2.scaleX._ = -2;
 			   new Delay(2),
 			   new CallFunction(function () { trace("finish camera!"); } ),
 			
-			])));*/
+			])));
 			
 			
 			/*cam.get(Script).run(

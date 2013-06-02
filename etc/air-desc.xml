@@ -2,11 +2,13 @@
 <application xmlns="http://ns.adobe.com/air/application/3.2">
 
    <!-- aspectRatio の値を landscape または portrate-->
-    <id>flambe.camera</id>
+    <id>flambe.camera44</id>
     <versionNumber>1.0.0</versionNumber>
-    <filename>camera Demo</filename>
+    <filename>Gamealpha1</filename>
     <initialWindow>
       <content>main-air.swf</content>
       <renderMode>direct</renderMode>
+	    
+     <aspectRatio>landscape</aspectRatio>
     </initialWindow>
 </application>

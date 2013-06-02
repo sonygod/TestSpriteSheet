@@ -63,7 +63,7 @@ class Joystick extends Sprite
 		
 		centerAnchor();
 		
-this.alpha.animateTo(0.5,0.5);
+this.alpha.animateTo(0.5,0.1);
 		
 	}
 	
@@ -103,7 +103,7 @@ this.alpha.animateTo(0.5,0.5);
 	
 	private function onUp(e:PointerEvent):Void {
 		_drag = false;
-		this.alpha.animateTo(0.5,0.5);
+		this.alpha.animateTo(0.1,0.5);
 	}
 	
 	

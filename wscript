@@ -13,7 +13,7 @@ def build(ctx):
     platforms = ["flash"]
 
     # Only build mobile apps if the required tools are installed
-    #if ctx.env.has_android: platforms += ["android"]
+    if ctx.env.has_android: platforms += ["android"]
     # if ctx.env.has_ios: platforms += ["ios"]
 
     # Kick off a build with the desired platforms

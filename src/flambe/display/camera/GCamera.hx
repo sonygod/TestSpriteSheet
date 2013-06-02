@@ -5,6 +5,7 @@ import flambe.Component;
 import flambe.display.Sprite;
 import flambe.Entity;
 import flambe.input.Pointer;
+import flambe.input.PointerEvent;
 import flambe.math.Rectangle;
 import flambe.System;
 import flambe.math.Point;
@@ -151,7 +152,9 @@ class GCamera extends Component
 		    var downPoint:Point;
 			var mouseDown:Bool;
 			var downScreenPoint:Point;
-			System.mouse.down.connect(function (e:MouseEvent):Void {
+			
+			
+			System.pointer.down.connect(function (e:PointerEvent):Void {
 				
 				if (!_drag) {
 					return;
@@ -165,7 +168,7 @@ class GCamera extends Component
 			});
 			
 			
-			System.mouse.up.connect(function (e:MouseEvent):Void {
+			System.pointer.up.connect(function (e:PointerEvent):Void {
 				
 				
 				
@@ -176,7 +179,7 @@ class GCamera extends Component
 				
 			});
 			
-			System.mouse.move.connect(function (e:MouseEvent):Void {
+			System.pointer.move.connect(function (e:PointerEvent):Void {
 				if (mouseDown&&_drag) {
 					
 					var dx:Float = e.viewX - downPoint.x;
