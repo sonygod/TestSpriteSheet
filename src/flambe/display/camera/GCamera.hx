@@ -8,6 +8,7 @@ import flambe.input.Pointer;
 import flambe.math.Rectangle;
 import flambe.System;
 import flambe.math.Point;
+import flambe.input.MouseEvent;
 
 
 /**
@@ -26,6 +27,8 @@ class GCamera extends Component
 	 private var duration:Float;
 	 private var readyToX:Float;
 	 private var readyToY:Float;
+	 public var drag(get, set):Bool;
+	 private var _drag:Bool;
 	 
 	
 	/**
@@ -43,6 +46,7 @@ class GCamera extends Component
 		tgty = 0;
 		_lastX = 0;
 		_lastY = 0;
+		_drag = false;
 		
 		
 	}
@@ -140,4 +144,56 @@ class GCamera extends Component
 	 }
 	 
 	 
+	  function set_drag(value:Bool):Bool {
+		 
+		
+		   _drag = value;
+		    var downPoint:Point;
+			var mouseDown:Bool;
+			var downScreenPoint:Point;
+			System.mouse.down.connect(function (e:MouseEvent):Void {
+				
+				if (!_drag) {
+					return;
+				}
+				 downPoint = new Point(e.viewX, e.viewY);
+				
+				var point:Point = toPoint(new Point(e.viewX, e.viewY), true);
+				mouseDown = true;
+				downScreenPoint = point;
+				
+			});
+			
+			
+			System.mouse.up.connect(function (e:MouseEvent):Void {
+				
+				
+				
+				 
+				
+				mouseDown = false;
+				downPoint = null;
+				
+			});
+			
+			System.mouse.move.connect(function (e:MouseEvent):Void {
+				if (mouseDown&&_drag) {
+					
+					var dx:Float = e.viewX - downPoint.x;
+					var dy:Float = e.viewY - downPoint.y;
+					
+					//var toPoint = new Point(downScreenPoint.x + dx, downScreenPoint.y + dy);
+					
+					to(downScreenPoint.x - dx, downScreenPoint.y - dy, 1, 1);
+					
+				}
+			});
+			return value;
+	 }
+	 
+	 
+	  function get_drag():Bool {
+		  return _drag;
+		  
+	  }
 }

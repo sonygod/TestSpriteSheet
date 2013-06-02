@@ -5,6 +5,7 @@
 package flambe;
 
 #if macro
+import de.polygonal.ds.SLLNode;
 import haxe.macro.Expr;
 #end
 
@@ -12,6 +13,7 @@ import de.polygonal.ds.DLL;
 import de.polygonal.ds.ResettableIterator;
 import de.polygonal.ds.SLL;
 import flambe.util.Disposable;
+import de.polygonal.ds.SLLNode;
 
 using Lambda;
 
@@ -34,6 +36,7 @@ using Lambda;
 @:final class Entity
     implements Disposable
 {
+	public var name:String;
     /** This entity's parent. */
     public var parent (default, null) :Entity = null;
 
@@ -219,8 +222,18 @@ using Lambda;
     }
 
     private function get_next():Entity {
-	if(_childList.head!=null)		
+	/*if(_childList.head!=null)		
         return _childList.head.next.val;
+		return null;*/
+		
+		if (this.parent != null) {
+			var e:SLL<Entity> =cast  this.parent.childList;
+			var node:SLLNode<Entity> = e.nodeOf(this);
+			if (node.next != null) {
+				return node.next.val;
+			}
+			
+		}
 		return null;
     }
     private function get_firstChild():Entity {
