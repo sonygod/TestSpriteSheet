@@ -5,7 +5,7 @@
 package flambe;
 
 #if macro
-import de.polygonal.ds.DLLNode;
+import de.polygonal.ds.SLLNode;
 import haxe.macro.Expr;
 #end
 
@@ -13,7 +13,9 @@ import de.polygonal.ds.DLL;
 import de.polygonal.ds.ResettableIterator;
 import de.polygonal.ds.SLL;
 import flambe.util.Disposable;
+import de.polygonal.ds.SLLNode;
 import de.polygonal.ds.DLLNode;
+
 using Lambda;
 
 /**
@@ -35,9 +37,7 @@ using Lambda;
 @:final class Entity
     implements Disposable
 {
-	
 	public var name:String;
-	
     /** This entity's parent. */
     public var parent (default, null) :Entity = null;
 
@@ -96,7 +96,7 @@ using Lambda;
     /**
      * Remove a component from this entity.
      */
-    public function remove (component :Component)
+     public function remove (component :Component)
     {
 
          var will:DLLNode<Component> = cast _componentList.nodeOf(component);
@@ -163,15 +163,14 @@ using Lambda;
     public function removeChild (entity :Entity)
     {
 
-      //childList.remove(entity);
-	  _childList.remove(entity);
+      childList.remove(entity);
     }
 
     /**
      * Dispose all of this entity's children, without touching its own components or removing itself
      * from its parent.
      */
-    public function disposeChildren ()
+   public function disposeChildren ()
     {
        var itr = _childList.head;
        
@@ -184,7 +183,7 @@ using Lambda;
     /**
      * Removes this entity from its parent, and disposes all its components and children.
      */
-    public function dispose ()
+     public function dispose ()
     {
         if (parent != null) {
             parent.removeChild(this);
@@ -202,6 +201,7 @@ using Lambda;
        
         disposeChildren();
     }
+
 
     #if debug @:keep #end public function toString () :String
     {
@@ -232,8 +232,18 @@ using Lambda;
     }
 
     private function get_next():Entity {
-	if(_childList.head!=null)		
+	/*if(_childList.head!=null)		
         return _childList.head.next.val;
+		return null;*/
+		
+		if (this.parent != null) {
+			var e:SLL<Entity> =cast  this.parent.childList;
+			var node:SLLNode<Entity> = e.nodeOf(this);
+			if (node.next != null) {
+				return node.next.val;
+			}
+			
+		}
 		return null;
     }
     private function get_firstChild():Entity {
@@ -241,7 +251,6 @@ using Lambda;
         return _childList.head.val;
 		return null;
     }
-	
 	private function get_firstComponent():Component{
 		if (_componentList.size() != 0) {
 		   return _componentList.head.val;	
