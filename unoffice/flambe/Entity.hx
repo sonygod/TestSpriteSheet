@@ -5,7 +5,7 @@
 package flambe;
 
 #if macro
-import de.polygonal.ds.SLLNode;
+import de.polygonal.ds.DLLNode;
 import haxe.macro.Expr;
 #end
 
@@ -13,8 +13,7 @@ import de.polygonal.ds.DLL;
 import de.polygonal.ds.ResettableIterator;
 import de.polygonal.ds.SLL;
 import flambe.util.Disposable;
-import de.polygonal.ds.SLLNode;
-
+import de.polygonal.ds.DLLNode;
 using Lambda;
 
 /**
@@ -36,7 +35,9 @@ using Lambda;
 @:final class Entity
     implements Disposable
 {
+	
 	public var name:String;
+	
     /** This entity's parent. */
     public var parent (default, null) :Entity = null;
 
@@ -51,6 +52,8 @@ using Lambda;
    public   var  next(get,null):Entity;
     public   var  firstChild(get,null):Entity;
     private   var _componentList:DLL<Component> ;
+	
+	public var firstComponent(get, null):Component;
     public function new ()
     {
 #if flash
@@ -96,9 +99,9 @@ using Lambda;
     public function remove (component :Component)
     {
 
-
-
-      _componentList.nodeOf(component).prev.val.init(this, componentList.nodeOf(component).next.val);
+         var will:DLLNode<Component> = cast _componentList.nodeOf(component);
+   if(will.next!=null)
+     will.prev.val.init(this, will.next.val);
 	  _componentList.remove(component);
 	  
 	  #if flash
@@ -160,7 +163,8 @@ using Lambda;
     public function removeChild (entity :Entity)
     {
 
-      childList.remove(entity);
+      //childList.remove(entity);
+	  _childList.remove(entity);
     }
 
     /**
@@ -169,10 +173,12 @@ using Lambda;
      */
     public function disposeChildren ()
     {
-       var itr:ResettableIterator<Entity>=cast _childList.iterator;
-        for(child in itr){
-         child.dispose();
-       }
+       var itr = _childList.head;
+       
+	   while (itr!=null) {
+		    itr.val.dispose();
+			itr = itr.next;
+	   } 
     }
 
     /**
@@ -182,14 +188,18 @@ using Lambda;
     {
         if (parent != null) {
             parent.removeChild(this);
+			parent = null;
+			
         }
 
-
-
-        var itr:ResettableIterator<Component>=cast _componentList.iterator;
-        for(child in itr){
-            child.dispose();
-        }
+       
+		var currentCom = _componentList.head;
+       
+		if (currentCom!=null) {
+		         currentCom.val.dispose();
+				 currentCom = currentCom.next;
+		}
+       
         disposeChildren();
     }
 
@@ -222,18 +232,8 @@ using Lambda;
     }
 
     private function get_next():Entity {
-	/*if(_childList.head!=null)		
+	if(_childList.head!=null)		
         return _childList.head.next.val;
-		return null;*/
-		
-		if (this.parent != null) {
-			var e:SLL<Entity> =cast  this.parent.childList;
-			var node:SLLNode<Entity> = e.nodeOf(this);
-			if (node.next != null) {
-				return node.next.val;
-			}
-			
-		}
 		return null;
     }
     private function get_firstChild():Entity {
@@ -241,4 +241,11 @@ using Lambda;
         return _childList.head.val;
 		return null;
     }
+	
+	private function get_firstComponent():Component{
+		if (_componentList.size() != 0) {
+		   return _componentList.head.val;	
+		}
+		return null;
+	}
 }
