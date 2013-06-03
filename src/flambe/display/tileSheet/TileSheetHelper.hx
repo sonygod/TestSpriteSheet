@@ -43,8 +43,10 @@ class TileSheetHelper extends Component {
 		
 		for ( p in phone) {
 			
-			animData.push( { x:cast p.att.x, y: cast p.att.y, w:cast p.att.width, h: cast p.att.height, offX:0, offY:0 ,id:p.att.name.substring(0,p.att.name.lastIndexOf(".png"))} );//
+			animData.push( { x:Std.parseFloat(p.att.x), y: Std.parseFloat(p.att.y), w:Std.parseFloat(p.att.width), h: Std.parseFloat(p.att.height), offX:0, offY:0 ,id:p.att.name.substring(0,p.att.name.lastIndexOf(".png"))} );//
 		}
+		
+		
         
         var tileSheet:AnimTextureSheet = new AnimTextureSheet();
         tileSheet.init(animData);
