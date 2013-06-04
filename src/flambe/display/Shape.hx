@@ -18,15 +18,15 @@ class Shape extends ImageSprite
 	public function new() 
 	{
 		t= cast  System.createTexture(System.stage.width, System.stage.height);
-		bd = new BitmapDebug(System.stage.width, System.stage.height, 0, true);
-		var bm:Bitmap =cast  bd.display;
+		graphics = new BitmapDebug(System.stage.width, System.stage.height, 0, true);
+		var bm:Bitmap =cast  graphics.display;
 		bit = bm.bitmapData;
 		super(t);
 	}
 	override public function draw(g:Graphics):Void
 	{
 		
-		bd.flush();
+		graphics.flush();
 		t.uploadBitmapData(bit);
 		super.draw(g);
 		
