@@ -108,8 +108,10 @@ start();
 
             if (_result || currentNode.val.instant)
                 parseNext();
-            else
+            else {
+				stop();
                 return 0;
+			}
 
         }
 
