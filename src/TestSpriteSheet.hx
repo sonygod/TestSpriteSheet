@@ -2,6 +2,7 @@
 
 import flambe.display.camera.GCamera;
 import flambe.display.Joystick;
+import flambe.display.Shape;
 import flambe.display.Sprite;
 import flambe.input.MouseEvent;
 import flambe.math.FMath;
@@ -14,6 +15,7 @@ import flambe.script.Repeat;
 import flambe.script.Script;
 import flambe.script.Sequence;
 import haxe.Timer;
+import nape.geom.AABB;
 
 import flambe.display.tileSheet.AnimTextureSheet;
 import flambe.display.tileSheet.TileSheetHelper;
@@ -84,8 +86,11 @@ class TestSpriteSheet {
 		//container.addChild( new Entity()
 		              //.add(new ImageSprite(pack.getTexture("bg"))));
                        //  .add(bgwater));
+					  
 		container.addChild(new Entity().add(new YSort()));
-	  var water:AnimSprite=addAmination("bgwater", [ 0,1, 2, 3, 4, 5,6], 12, new Point(1640/4, 480), new Point(1640/4, 480), 9, 2);
+	  var water:AnimSprite = addAmination("bgwater", [ 0, 1, 2, 3, 4, 5, 6], 12, new Point(1640 / 4, 480), new Point(1640 / 4, 480), 9, 2);
+	   var shape:Shape = new Shape(2000, 400);
+	   container.addChild(new Entity().add(shape));
 		water.sort = false;
 		water.scaleX._ = 3.8;
 		water.scaleY._ = 2.5;
@@ -102,7 +107,7 @@ man.scaleX._ = -1.5;
 	   
 	   
 	    var man2= addAmination("monster2", [ 1, 2, 3, 4, 5, 7,8,9,10,11,12,13,14,15], 8, new Point(1800, 450), new Point(1800, 450), 60, 2);
-man2.scaleX._ = -2;
+       man2.scaleX._ = -2;
 		 var font = new Font(pack, "tinyfont");
         System.root.addChild(new Entity()
             .add(new TextSprite(font))
@@ -174,6 +179,13 @@ man2.scaleX._ = -2;
 			 .add(new Joystick(100,400,pack))
             );
 			
+			
+			
+			for ( n in 0...100) {
+				
+				shape.graphics.drawAABB(new AABB(n * 25, n + 2, 20, 30), Std.int(Math.random() * 0xFFFFFF));
+			}
+			
     }
 	
 	public static function addAmination(name:String, frames:Array<Int>,fps:Int,fromPoint:Point,toPoint:Point,speed:Int,scale:Float,?otherContainer:Entity=null):AnimSprite {
@@ -189,6 +201,7 @@ man2.scaleX._ = -2;
         as.initialize(ats);
             as.addSequence("all",frames,fps);
             as.play("all");
+
             as.centerAnchor();
             tentacle.add(as);
 			as.setScale(scale);

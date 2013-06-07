@@ -49,9 +49,10 @@ class AnimTextureSheet {
 
 
     public var arFrameData:Array<FrameData>;
+
     public function init(arFrameData:Array<FrameData>):Void {
 
-        this.arFrameData=arFrameData;
+        this.arFrameData = arFrameData;
 
         var rcFrame:Rectangle;
         var regPt:Point;
@@ -73,11 +74,11 @@ class AnimTextureSheet {
         }
     }
 
-  /* public function drawFrame(frame:Int, destBmp:BitmapData):Void {
+/* public function drawFrame(frame:Int, destBmp:BitmapData):Void {
         destBmp.copyPixels(mTextureSheet, mTextureRegions[frame], mFrameOffsets[frame]);
     }*/
 
-    public function getFrameData(frame:Int):FrameData{
+    public function getFrameData(frame:Int):FrameData {
 
 
         return arFrameData[frame];

@@ -23,7 +23,7 @@ class AnimSprite extends Sprite {
 
     var mAnimSheet:AnimTextureSheet;
     var mSequences:Array<AnimSeqData>;
-    var curAnim:AnimSeqData;
+   public var curAnim(default,null):AnimSeqData;
 // current sequence
     var dirty:Bool;
     var donePlaying:Bool;
@@ -36,7 +36,7 @@ class AnimSprite extends Sprite {
     static public inline var LEFT:Int = 1;
     static public inline var RIGHT:Int = 2;
 
-    public function new(texture :Texture) {
+    public function new(texture:Texture) {
 
         super();
         fakeElapsed = 0.0167;
@@ -45,17 +45,11 @@ class AnimSprite extends Sprite {
         mSequences = [];
 
 
-
         this.texture = texture;
-		
-		
-
 
 
     }
 
-   
-	
 
     public function initialize(sheet:AnimTextureSheet):Void {
         if (sheet == null)
@@ -68,9 +62,6 @@ class AnimSprite extends Sprite {
 
 
     }
-
-
-
 
 
     public function isPlaying(index:Int = 0):Bool {
@@ -137,7 +128,6 @@ class AnimSprite extends Sprite {
     }
 
 
-
     public function play(name:String = null):Void {
 
         if (name == null) {
@@ -165,11 +155,9 @@ class AnimSprite extends Sprite {
     }
 
 
-
     public function stop():Void {
         donePlaying = true;
     }
-
 
 
     public function frameAdvance(next:Bool):Void {
@@ -194,22 +182,23 @@ class AnimSprite extends Sprite {
 
 
     var fakeElapsed:Float;
-    override public function onUpdate (dt :Float)
-    {
-        
-        super.onUpdate(dt);
-		
-        updateAnimation();
-		
-		
-        }
 
-		override public function isOutScreen():Bool {
-			return false;
-		}
+    override public function onUpdate(dt:Float) {
+
+        super.onUpdate(dt);
+
+        updateAnimation();
+
+
+    }
+
+    override public function isOutScreen():Bool {
+        return false;
+    }
+
     public function updateAnimation():Void {
-		if (isOutScreen())
-		 return;
+        if (isOutScreen())
+            return;
         if (curAnim != null && curAnim.delay > 0 && !donePlaying) {
 
             frameTimer += fakeElapsed;
@@ -238,38 +227,37 @@ class AnimSprite extends Sprite {
 
 // Internal function to update the current animation frame
 
-    var needDraw:Bool=false;
+    var needDraw:Bool = false;
+
     function drawFrameInternal():Void {
         dirty = false;
-       // needDraw=true;
-     //  trace(curIndex);
-	 
-	    anchorY._ = getNaturalHeight();
+// needDraw=true;
+//  trace(curIndex);
+
+        anchorY._ = getNaturalHeight();
     }
 
 
+    public var texture:Texture;
 
-    public var texture :Texture;
     override public function draw(ctx:Graphics) {
-      //  var frame:FrameData=mAnimSheet.getFrameData(curIndex);
-      
-	  if (isOutScreen())
-	  return;
+//  var frame:FrameData=mAnimSheet.getFrameData(curIndex);
 
-      var data:FrameData=mAnimSheet.getFrameData(curIndex);
+        if (isOutScreen())
+            return;
+
+        var data:FrameData = mAnimSheet.getFrameData(curIndex);
 
 
-       ctx.drawSubImage(texture,data.offX,data.offY,data.x,data.y,data.w,data.h) ;
+        ctx.drawSubImage(texture, data.offX, data.offY, data.x, data.y, data.w, data.h) ;
 
     }
 
-    override public function getNaturalWidth () :Float
-    {
+    override public function getNaturalWidth():Float {
         return mAnimSheet.get_frameWidth(curIndex);//.getFrameWidth(curIndex);
     }
 
-    override public function getNaturalHeight () :Float
-    {
+    override public function getNaturalHeight():Float {
         return mAnimSheet.get_frameHeight(curIndex);
     }
 

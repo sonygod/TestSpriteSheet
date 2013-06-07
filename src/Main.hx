@@ -1,5 +1,6 @@
 package ;
 
+import flambe.display.Shape;
 import nape.geom.Vec2;
 import flambe.asset.AssetPack;
 import flambe.asset.Manifest;
@@ -24,8 +25,8 @@ class Main
 		var bd:BitmapDebug = new BitmapDebug(System.stage.width, System.stage.height);
 		var im:ImageSprite=new ImageSprite(pack.getTexture("bird"));
 		var taskE:Entity = new Entity();
-		
-		taskE.add(new ImageSprite(bd.getTexture()));
+		var shape:Shape = new Shape();
+		taskE.add(shape);
 		//taskE.add(new ImageSprite(pack.getTexture("bird")));
 		taskE.add(new Script());
 		System.root.addChild(taskE);
@@ -55,7 +56,7 @@ class Main
 		
 		
 		
-		bd.drawCircle(new Vec2(100, 100), 10, 0xFFFF66);
+		shape.graphics.drawCircle(new Vec2(100, 100), 10, 0xFFFF66);
 		
     }
 

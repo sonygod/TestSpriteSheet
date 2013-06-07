@@ -2,21 +2,24 @@
 <project version="2">
   <!-- Output SWF options -->
   <output>
-    <movie outputType="CustomBuild" />
+    <movie outputType="Application" />
     <movie input="" />
-    <movie path="" />
+    <movie path="deploy\web\test.swf" />
     <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
     <movie version="11" />
     <movie minorVersion="0" />
     <movie platform="Flash Player" />
-    <movie background="#000000" />
+    <movie background="#FFFFFF" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
     <class path="ds" />
+    <class path="..\..\..\..\..\Motion-Twin\haxe\lib\flambe\3,0" />
+    <class path="tests\src" />
+    <class path="..\..\..\..\..\Motion-Twin\haxe\lib\nape\2,0,9" />
   </classpaths>
   <!-- Build options -->
   <build>
