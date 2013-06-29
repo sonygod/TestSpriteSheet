@@ -1,5 +1,6 @@
 
 
+import flambe.display.atom.Avatar;
 import flambe.display.camera.GCamera;
 import flambe.display.Joystick;
 import flambe.display.Shape;
@@ -34,6 +35,7 @@ import flambe.script.CallFunction;
 using Lambda;
 using flambe.YSort;
 import flambe.Component;
+import flambe.input.PointerEvent;
 
 
 class TestSpriteSheet {
@@ -89,8 +91,8 @@ class TestSpriteSheet {
 					  
 		container.addChild(new Entity().add(new YSort()));
 	  var water:AnimSprite = addAmination("bgwater", [ 0, 1, 2, 3, 4, 5, 6], 12, new Point(1640 / 4, 480), new Point(1640 / 4, 480), 9, 2);
-	   var shape:Shape = new Shape(2000, 400);
-	   container.addChild(new Entity().add(shape));
+	 /*  var shape:Shape = new Shape(2000, 400);
+	   container.addChild(new Entity().add(shape));*/
 		water.sort = false;
 		water.scaleX._ = 3.8;
 		water.scaleY._ = 2.5;
@@ -98,10 +100,37 @@ class TestSpriteSheet {
 			bird.scaleX._ = -1;
 		addAmination("mj1", [ 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17], 12, new Point(0, 470), new Point(1500, 470), 9, 1.5);
 		addAmination("weiyang", [1, 2, 3, 4, 5,7,8,9,10,11,12,13,14,15,16,17,18,19,20], 10, new Point(100, 450), new Point(1500, 450),5,1.5);
-		addAmination("guanyu", [ 1, 2, 3, 4, 5], 10, new Point(100, 400), new Point(1600, 400), 11,1.5);
+		//addAmination("guanyu_walk", [ 0,1, 2, 3, 4, 5,6,7], 10, new Point(100, 400), new Point(1600, 400), 11,1.5);
 	  var man= addAmination("mus3", [ 1, 2, 3, 4, 5, 7], 12, new Point(1500, 450), new Point(100, 450), 12, 1.5);
 man.scaleX._ = -1.5;
-	var car:AnimSprite=addAmination("car", [ 0,1, 2], 8, new Point(1500, 350), new Point(100, 450), 20,1.5);		 
+	var car:AnimSprite = addAmination("car", [ 0, 1, 2], 8, new Point(1500, 350), new Point(100, 450), 20, 1.5);		
+	
+	
+	
+	
+	/*var avatar:Avatar = new Avatar(pack);
+    avatar.appendAnimationSheet("guanyu_walk");
+	avatar.appendAnimationSheet("guanyu_run");
+	avatar.definedFrames("guanyu_walk", "walk", [ 0, 1, 2, 3, 4, 5, 6, 7], 10);
+	avatar.definedFrames("guanyu_run", "run", [ 0, 1, 2, 3, 4, 5], 12);
+	var am:AnimSprite = avatar.play("run");
+	 am.x._ = 500;
+     am.y._ = 350;// sprite.getNaturalHeight() * (ii + 1);
+	
+	container.addChild(avatar);
+	
+	
+	
+	System.pointer.up.connect(function (e:PointerEvent):Void {
+
+                if (avatar.lastAsFrame == "run") {
+					avatar.play("walk");
+				}else {
+					avatar.play("run");
+				}
+
+});*/
+
 		
 	  var camera:GCamera = new GCamera(container, new Rectangle(0, 0, 1800, 470));
 	   
@@ -181,10 +210,7 @@ man.scaleX._ = -1.5;
 			
 			
 			
-			for ( n in 0...100) {
-				
-				shape.graphics.drawAABB(new AABB(n * 25, n + 2, 20, 30), Std.int(Math.random() * 0xFFFFFF));
-			}
+		
 			
     }
 	

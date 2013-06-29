@@ -37,6 +37,7 @@ class Shape extends ImageSprite {
     override public function onUpdate(dt:Float):Void {
         super.onUpdate(dt);
 
+		return;
         if (space != null) {
             space.step(dt);
             graphics.clear();
