@@ -1,5 +1,7 @@
 package flambe.display;
+import flambe.display.camera.GCamera;
 import flambe.display.Graphics;
+import flambe.math.Point;
 import flambe.platform.flash.Stage3DTexture;
 import flambe.System;
 import flash.display.BitmapData;
@@ -17,13 +19,23 @@ class Shape extends ImageSprite {
     private var t:Stage3DTexture;
     private var bit:BitmapData;
     public var space:Space;
+	
+	private var cam:GCamera;
+	
+	private var tempPoint:Point;
 
-    public function new(w:Float,h:Float) {
+    public function new(cam:GCamera,space:Space) {
+		
+		this.cam = cam;
+		var w = System.stage.width;
+		var h = System.stage.height;
         t = cast System.createTexture(Std.int(w), Std.int(h));
         graphics = new BitmapDebug(Std.int(w), Std.int(h), 0, true);
         var bm:Bitmap = cast graphics.display;
         bit = bm.bitmapData;
 		sort = false;
+		tempPoint = new Point();
+		this.space = space;
         super(t);
     }
 
@@ -37,19 +49,47 @@ class Shape extends ImageSprite {
     override public function onUpdate(dt:Float):Void {
         super.onUpdate(dt);
 
-		return;
+		
         if (space != null) {
             space.step(dt);
             graphics.clear();
-          graphics.draw(space);
+			
+			space.bodies.foreach(
+			
+			function (_body:Body) {
+				 
+				var x = _body.position.x;
+				var y = _body.position.y;
+				tempPoint .x = x;
+				tempPoint.y = y;
+				
+				tempPoint = fix(tempPoint);
+				var point:Point = cam.toPoint(tempPoint, false);
+			
+				_body.position.x = point.x;
+				_body.position.y = point.y;
+				graphics.draw(_body);
+				
+				_body.position.x = x;
+				
+				_body.position.y= y;
+				
+				
+				
+			}
+			);
+        //  graphics.draw(space);
 
         }
         graphics.flush();
         t.uploadBitmapData(bit);
     }
 
-    private function fix(_body:Body):Void {
-       
-    }
+	
+	public function fix(point:Point):Point {
+		   
+		return point;
+	}
+   
 
 }

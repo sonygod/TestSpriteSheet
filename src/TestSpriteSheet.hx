@@ -43,6 +43,7 @@ class TestSpriteSheet {
 	private static var container:Entity;
 	private static var pack:AssetPack;
 	private var joy:Joystick;
+	private var viewPort:Viewports;
     private static function main() {
         System.init();
 
@@ -91,8 +92,7 @@ class TestSpriteSheet {
 					  
 		container.addChild(new Entity().add(new YSort()));
 	  var water:AnimSprite = addAmination("bgwater", [ 0, 1, 2, 3, 4, 5, 6], 12, new Point(1640 / 4, 480), new Point(1640 / 4, 480), 9, 2);
-	 /*  var shape:Shape = new Shape(2000, 400);
-	   container.addChild(new Entity().add(shape));*/
+
 		water.sort = false;
 		water.scaleX._ = 3.8;
 		water.scaleY._ = 2.5;
@@ -108,7 +108,7 @@ man.scaleX._ = -1.5;
 	
 	
 	
-	/*var avatar:Avatar = new Avatar(pack);
+	var avatar:Avatar = new Avatar(pack);
     avatar.appendAnimationSheet("guanyu_walk");
 	avatar.appendAnimationSheet("guanyu_run");
 	avatar.definedFrames("guanyu_walk", "walk", [ 0, 1, 2, 3, 4, 5, 6, 7], 10);
@@ -129,7 +129,7 @@ man.scaleX._ = -1.5;
 					avatar.play("run");
 				}
 
-});*/
+});
 
 		
 	  var camera:GCamera = new GCamera(container, new Rectangle(0, 0, 1800, 470));
@@ -204,11 +204,15 @@ man.scaleX._ = -1.5;
 			)
 			);*/
 			
+			var view:Viewports = new Viewports();
+			
+			 var shape:Shape = new Shape(camera,view.space);
+	   System.root.addChild(new Entity().add(shape));
 		 System.root.addChild(new Entity()
 			 .add(new Joystick(100,400,pack))
             );
 			
-			
+			  
 			
 		
 			

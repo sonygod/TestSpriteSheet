@@ -29,6 +29,7 @@ class GCamera extends Component {
     private var readyToY:Float;
     public var drag(get, set):Bool;
     private var _drag:Bool;
+	private var convertPoint:Point;
 
 
 /**
@@ -47,7 +48,7 @@ class GCamera extends Component {
         _lastX = 0;
         _lastY = 0;
         _drag = false;
-
+convertPoint = new Point();
 
     }
 /**
@@ -124,18 +125,21 @@ return false;
 
 public function toPoint(p:Point, ?toCamara:Bool = true):Point{
 
-var child :Sprite = cast canvas.componentList.head.val;
+		var child :Sprite = cast canvas.componentList.head.val;
 
-if (child != null) {
+		if (child != null) {
 
-if (toCamara) {
+		if (toCamara) {
+//not test.
+		return new Point(  -child.x._ + p.x, - child.y._ + p.y);
 
-return new Point( - child.x._ + p.x, - child.y._ + p.y);
+		} else {
 
-} else {
-
-return new Point(p.x - child.x._ - tgtx, p.y - child.y._ - tgty);
-}
+			convertPoint .x = p.x + child.x._ ;
+			convertPoint.y = p.y + child.y._;
+			convertPoint.multiply(child.scaleX._);
+		return convertPoint;
+		}
 }
 
 return null;
