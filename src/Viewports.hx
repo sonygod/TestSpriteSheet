@@ -2,6 +2,7 @@ package;
  
  
  
+import flambe.display.camera.GCamera;
 import flambe.System;
 import haxe.ds.ObjectMap;
 import haxe.ds.StringMap;
@@ -39,6 +40,7 @@ class Viewports extends Template {
 		
     }
  
+	
     var viewports:Compound;
     var viewableObjects:Array<Body>;
 	var cellPool:StringMap<Body>;
@@ -90,7 +92,7 @@ class Viewports extends Template {
  
         // Create a couple of viewports
         var viewport = new Body();
-        viewport.position.setxy(w/3, h/2);
+        viewport.position.setxy(100,300);
         viewport.compound = viewports;
  
         var viewportShape:Shape = new Polygon(Polygon.box(150, 150));
@@ -99,8 +101,9 @@ class Viewports extends Template {
  
         // Aaaand another.
         viewport = new Body();
-        viewport.position.setxy(2*w/3, h/2);
-        viewport.compound = viewports;
+        viewport.position.setxy(400, 300);
+       // viewport.compound = viewports;
+	   viewport.space = space;
  
         viewportShape = new Circle(30);
         viewportShape.sensorEnabled = true;
@@ -116,7 +119,7 @@ class Viewports extends Template {
 		
 		
 		var r:Int = 20;
-		for (i in 0...100) {
+		for (i in 0...1) {
 		   for (j in 0...1) {
 			   var  sixPolygon :Body = new Body();
 			   sixPolygon.allowMovement = false;
@@ -157,7 +160,9 @@ class Viewports extends Template {
 			startIndex = 1;
 			
 		}
-		
+		if (body == null) {
+			return;
+		}
 		lastBody = body;
 		if (lastDrawBodys != null && lastDrawBodys.length != 0) {
 		    for ( oldItem in lastDrawBodys) {

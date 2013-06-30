@@ -7,6 +7,7 @@ import flambe.input.Key;
 import flambe.input.Keyboard;
 import flambe.input.KeyboardEvent;
 import flambe.math.FMath;
+import flambe.math.Point;
 import flambe.System;
 import flash.events.TouchEvent;
 import nape.space.Space;
@@ -21,7 +22,7 @@ import nape.util.BitmapDebug;
 import nape.util.ShapeDebug;
 import nape.constraint.PivotJoint;
 import flambe.input.PointerEvent;
-
+import flambe.display.camera.GCamera;
 typedef TemplateParams = {
     ?gravity : Vec2,
     ?shapeDebug : Bool,
@@ -56,6 +57,7 @@ class Template  extends Component {
 
     var params:TemplateParams;
     var useHand:Bool;
+	public var cam:GCamera;
     function new(params:TemplateParams) {
       
         
@@ -89,12 +91,11 @@ class Template  extends Component {
                 hand.space = space;
                // stage.addEventListener(MouseEvent.MOUSE_UP, handMouseUp);
             }
-          //  stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown);
-		//  System.mouse.down.conect(mouseDown);
-		  if (System.touch.supported) {
+        
+		
 			  System.pointer.up.connect(handMouseUp);
 			  System.pointer.down.connect(mouseDown);
-		}
+		
         }
 
         if (params.noReset == null || !params.noReset) {
@@ -158,7 +159,10 @@ class Template  extends Component {
 
     var bodyList:BodyList = null;
     function mouseDown(evt:PointerEvent) {
-        var mp = Vec2.get(evt.viewX, evt.viewY);
+		//to camera veiw point;
+		
+		var p:Point=cam.toPoint(new Point(evt.viewX, evt.viewY), true);
+        var mp = Vec2.get(p.x, p.y);
         if (useHand) {
             // re-use the same list each time.
             bodyList = space.bodiesUnderPoint(mp, null, bodyList);
@@ -201,9 +205,14 @@ class Template  extends Component {
 
 	override public function onUpdate (dt :Float)
     {
+	
 		if (hand != null && hand.active) {
-            hand.anchor1.setxy(System.mouse.x, System.mouse.y);
+			
+			if (cam != null) {
+				var p:Point = cam.toPoint(new Point(System.mouse.x, System.mouse.y), true);
+            hand.anchor1.setxy(p.x,p.y);
             hand.body2.angularVel *= 0.9;
+			}
         }
 		
     }

@@ -18,7 +18,7 @@ import flambe.input.MouseEvent;
  */
 class GCamera extends Component {
     private var canvas:Entity;
-    private var _bound:Rectangle;
+    public var _bound:Rectangle;
     private var _lastX:Float;
     private var _lastY:Float;
     private var _lastZoomAmount:Float;
@@ -130,8 +130,8 @@ public function toPoint(p:Point, ?toCamara:Bool = true):Point{
 		if (child != null) {
 
 		if (toCamara) {
-//not test.
-		return new Point(  -child.x._ + p.x, - child.y._ + p.y);
+
+	      return new Point(p.x - child.x._, p.y - child.y._);
 
 		} else {
 

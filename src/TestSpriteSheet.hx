@@ -160,7 +160,7 @@ man.scaleX._ = -1.5;
 			
 			
 			
-			cam.get(Script).run(
+			/*cam.get(Script).run(
 			new Repeat(
 			new Sequence([
 			 new CallFunction(function () {
@@ -187,7 +187,7 @@ man.scaleX._ = -1.5;
 			   new Delay(2),
 			   new CallFunction(function () { trace("finish camera!"); } ),
 			
-			])));
+			])));*/
 			
 			
 			/*cam.get(Script).run(
@@ -205,9 +205,10 @@ man.scaleX._ = -1.5;
 			);*/
 			
 			var view:Viewports = new Viewports();
-			
+			view.cam = camera;
+			 System.root.addChild(new Entity().add(view));
 			 var shape:Shape = new Shape(camera,view.space);
-	   System.root.addChild(new Entity().add(shape));
+	  System.root.addChild(new Entity().add(shape));
 		 System.root.addChild(new Entity()
 			 .add(new Joystick(100,400,pack))
             );
