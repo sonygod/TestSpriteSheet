@@ -36,6 +36,8 @@ using Lambda;
 using flambe.YSort;
 import flambe.Component;
 import flambe.input.PointerEvent;
+import nape.CollideMagic;
+import flambe.display.atom.AvatarNape;
 
 
 class TestSpriteSheet {
@@ -44,6 +46,7 @@ class TestSpriteSheet {
 	private static var pack:AssetPack;
 	//private var joy:Joystick;
 	private var viewPort:Viewports;
+	
     private static function main() {
         System.init();
 

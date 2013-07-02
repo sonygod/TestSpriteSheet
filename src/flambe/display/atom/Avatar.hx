@@ -66,6 +66,8 @@ class Avatar extends Entity  {
         }
         add(as);
         if (lastAs != null) {
+			//lastAs.updateSinal.disconnect(onUpdate);
+			lastAs.disposer.connect1(lastAs.updateSinal, onUpdate);
             as.setXY(lastAs.x._, lastAs.y._);
             as.rotation._ = lastAs.rotation._;
             as.setScaleXY(lastAs.scaleX._, lastAs.scaleY._);
@@ -75,11 +77,21 @@ class Avatar extends Entity  {
 
         }
         lastAs = as;
+		lastAs.updateSinal.connect(onUpdate);
         as.play(frameName);
         return lastAs;
 
     }
 
+	//binding body and animation.
+	public function onUpdate(dt:Float):Void {
+		
+		
+		
+		
+		
+		
+	}
     public function stop():Void {
         lastAs.stop();
     }

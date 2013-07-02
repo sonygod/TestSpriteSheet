@@ -6,6 +6,8 @@ import flambe.display.Sprite;
 
 import flambe.display.tileSheet.Format;
 import flambe.display.Graphics;
+import flambe.util.Signal1;
+import flambe.Disposer;
 using flambe.YSort;
 
 // =============================  Created by: Amos Laber, Dec 2, 2011
@@ -20,6 +22,9 @@ class AnimSprite extends Sprite {
     public var numSequences(get, never):Int;
     public var seqFrame(get, never):Int;
     public var frame(get, set):Int;
+	
+	public var updateSinal:Signal1<Float>;
+	public var disposer:Disposer;
 
     var mAnimSheet:AnimTextureSheet;
     var mSequences:Array<AnimSeqData>;
@@ -47,7 +52,8 @@ class AnimSprite extends Sprite {
 
         this.texture = texture;
 
-
+updateSinal = new Signal1<Float>();
+disposer = new Disposer();
     }
 
 
@@ -189,7 +195,7 @@ class AnimSprite extends Sprite {
 
         updateAnimation();
 
-
+       updateSinal.emit(dt);
     }
 
     override public function isOutScreen():Bool {
