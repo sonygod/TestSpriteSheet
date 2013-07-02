@@ -2,7 +2,7 @@
 
 import flambe.display.atom.Avatar;
 import flambe.display.camera.GCamera;
-import flambe.display.Joystick;
+//import flambe.display.Joystick;
 import flambe.display.Shape;
 import flambe.display.Sprite;
 import flambe.input.MouseEvent;
@@ -42,7 +42,7 @@ class TestSpriteSheet {
 	
 	private static var container:Entity;
 	private static var pack:AssetPack;
-	private var joy:Joystick;
+	//private var joy:Joystick;
 	private var viewPort:Viewports;
     private static function main() {
         System.init();
@@ -209,9 +209,9 @@ man.scaleX._ = -1.5;
 			 System.root.addChild(new Entity().add(view));
 			 var shape:Shape = new Shape(camera,view.space);
 	  System.root.addChild(new Entity().add(shape));
-		 System.root.addChild(new Entity()
+		/* System.root.addChild(new Entity()
 			 .add(new Joystick(100,400,pack))
-            );
+            );*/
 			
 			  
 			

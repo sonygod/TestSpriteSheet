@@ -9,6 +9,7 @@ import nape.phys.Body;
 import nape.space.Space;
 import nape.util.BitmapDebug;
 import flash.display.Bitmap;
+import flambe.platform.flash.FlashStage;
 /**
  * ... only for flash
  * @author sonygod
@@ -32,7 +33,10 @@ class Shape extends ImageSprite {
         t = cast System.createTexture(Std.int(w), Std.int(h));
         graphics = new BitmapDebug(Std.int(w), Std.int(h), 0, true);
         var bm:Bitmap = cast graphics.display;
-        bit = bm.bitmapData;
+       // bit = bm.bitmapData;
+	   var stage :FlashStage =untyped System.stage;
+	   
+	   stage.nativeStage.addChild(bm);
 		sort = false;
 		tempPoint = new Point();
 		this.space = space;
@@ -82,7 +86,7 @@ class Shape extends ImageSprite {
 
         }
         graphics.flush();
-        t.uploadBitmapData(bit);
+       // t.uploadBitmapData(bit);
     }
 
 	
