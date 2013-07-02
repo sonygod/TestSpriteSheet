@@ -59,41 +59,41 @@ convertPoint = new Point();
 	 * @param	duration  same as tweenlite's duration
 	 */
     public function to(toX:Float, toY:Float, zoomAmount:Float, duration:Float):Void{
-var xx:Float = (toX * zoomAmount);
-var yy:Float = (toY * zoomAmount);
-var hx:Float = (System.stage.width / 2);
-var hy:Float = (System.stage.height / 2);
-if ((xx - (getBoundLeft(_bound) * zoomAmount)) < hx){
-xx = ((getBoundLeft(_bound) * zoomAmount) + hx);
-} else {
-if (((getBoundRight(_bound) * zoomAmount) - xx) < hx){
-xx = ((getBoundRight(_bound) * zoomAmount) - hx);
-};
-};
-if ((yy - (getBoundTop(_bound) * zoomAmount)) < hy){
-yy = ((getBoundTop(_bound) * zoomAmount) + hy);
-} else {
-if (((getBoundBottom(_bound) * zoomAmount) - yy) < hy){
-yy = ((getBoundBottom(_bound) * zoomAmount) - hy);
-};
-};
-tgtx = ((System.stage.width * 0.5) - xx);
-tgty = ((System.stage.height * 0.5) - yy);
+				var xx:Float = (toX * zoomAmount);
+				var yy:Float = (toY * zoomAmount);
+				var hx:Float = (System.stage.width / 2);
+				var hy:Float = (System.stage.height / 2);
+				if ((xx - (getBoundLeft(_bound) * zoomAmount)) < hx){
+				xx = ((getBoundLeft(_bound) * zoomAmount) + hx);
+				} else {
+				if (((getBoundRight(_bound) * zoomAmount) - xx) < hx){
+				xx = ((getBoundRight(_bound) * zoomAmount) - hx);
+				};
+				};
+				if ((yy - (getBoundTop(_bound) * zoomAmount)) < hy){
+				yy = ((getBoundTop(_bound) * zoomAmount) + hy);
+				} else {
+				if (((getBoundBottom(_bound) * zoomAmount) - yy) < hy){
+				yy = ((getBoundBottom(_bound) * zoomAmount) - hy);
+				};
+				};
+				tgtx = ((System.stage.width * 0.5) - xx);
+				tgty = ((System.stage.height * 0.5) - yy);
 
 
-var child :Sprite = cast canvas.componentList.head.val;
+				var child :Sprite = cast canvas.componentList.head.val;
 
-if (child!=null) {
-child.x.animateTo(tgtx, duration);
-child.y.animateTo(tgty, duration);
-child.scaleX.animateTo(zoomAmount, duration);
-child.scaleY.animateTo(zoomAmount, duration);
-}
+				if (child!=null) {
+				child.x.animateTo(tgtx, duration);
+				child.y.animateTo(tgty, duration);
+				child.scaleX.animateTo(zoomAmount, duration);
+				child.scaleY.animateTo(zoomAmount, duration);
+				}
 
 
-this._lastX = toX;
-this._lastY = toY;
-this._lastZoomAmount = zoomAmount;
+				this._lastX = toX;
+				this._lastY = toY;
+				this._lastZoomAmount = zoomAmount;
 }
 
 

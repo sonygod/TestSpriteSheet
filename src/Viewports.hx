@@ -30,11 +30,13 @@ import Template;
 import flash.display.DisplayObject;
  
 class Viewports extends Template {
- public    function new() {
+ public    function new(cam:GCamera) {
+	 this.cam = cam;
         super({
             // We're going to draw things in a non-standard way
             // so tell Template not to auto-draw Space.
-            customDraw: true
+            customDraw: true,
+			gravity: Vec2.get(0, 600)
         });
 		
 		
@@ -57,8 +59,8 @@ class Viewports extends Template {
         createBorder();
  
         // Super high drag.
-        space.worldLinearDrag = 5;
-        space.worldAngularDrag = 5;
+      //  space.worldLinearDrag = 5;
+      //  space.worldAngularDrag = 5;
  
         // and strength default hand joint settings.
         hand.maxForce = Math.POSITIVE_INFINITY;
@@ -143,6 +145,40 @@ class Viewports extends Template {
 		   } 
 		}
 		
+		
+		 var floor:Body = new Body(BodyType.STATIC);
+            floor.shapes.add(new Polygon(Polygon.rect(50, (h - 50), (w - 100), 1)));
+            floor.space = space;
+
+            // Create a tower of boxes.
+            //   We use a DYNAMIC type object, and give it a single
+            //   Polygon with vertices defined by Polygon.box utility
+            //   whose arguments are the width and height of box.
+            //
+            //   Polygon.box(w, h) === Polygon.rect((-w / 2), (-h / 2), w, h)
+            //   which means we get a box whose centre is the body origin (0, 0)
+            //   and that when this object rotates about its centre it will
+            //   act as expected.
+            for (i in 0...16) {
+                var box:Body = new Body(BodyType.DYNAMIC);
+                box.shapes.add(new Polygon(Polygon.box(16, 32)));
+                box.position.setxy((w / 2), ((h - 50) - 32 * (i + 0.5)));
+                box.space = space;
+            }
+
+            // Create the rolling ball.
+            //   We use a DYNAMIC type object, and give it a single
+            //   Circle with radius 50px. Unless specified otherwise
+            //   in the second optional argument, the circle is always
+            //   centered at the origin.
+            //
+            //   we give it an angular velocity so when it touched
+            //   the floor it will begin rolling towards the tower.
+            var ball:Body = new Body(BodyType.DYNAMIC);
+            ball.shapes.add(new Circle(50));
+            ball.position.setxy(50, h / 2);
+            ball.angularVel = 10;
+            ball.space = space;
     }
  
 	private var lastDrawBodys:Array<Body>;

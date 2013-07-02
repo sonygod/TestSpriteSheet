@@ -207,7 +207,7 @@ man.scaleX._ = -1.5;
 			)
 			);*/
 			
-			var view:Viewports = new Viewports();
+			var view:Viewports = new Viewports(camera);
 			view.cam = camera;
 			 System.root.addChild(new Entity().add(view));
 			 var shape:Shape = new Shape(camera,view.space);

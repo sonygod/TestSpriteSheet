@@ -121,12 +121,12 @@ class Template  extends Component {
 		
 		var stage = System.stage;
         var border = new Body(BodyType.STATIC);
-        border.shapes.add(new Polygon(Polygon.rect(0, 0, -2, stage.height)));
-        border.shapes.add(new Polygon(Polygon.rect(0, 0, stage.width, -2)));
-        border.shapes.add(new Polygon(Polygon.rect(stage.width, 0, 2, stage.height)));
-        border.shapes.add(new Polygon(Polygon.rect(0, stage.height, stage.width, 2)));
+        border.shapes.add(new Polygon(Polygon.rect(0, 0, -2, stage.height)));//left
+        border.shapes.add(new Polygon(Polygon.rect(0, 0, stage.width, -2)));//top
+        border.shapes.add(new Polygon(Polygon.rect(cam._bound.width, 0, 2, stage.height)));//right
+        border.shapes.add(new Polygon(Polygon.rect(0, stage.height-50, cam._bound.width, 10)));//bottom
         border.space = space;
-        border.debugDraw = false;
+       // border.debugDraw = false;
         return border;
     }
 
