@@ -159,10 +159,10 @@ class Viewports extends Template {
             //   which means we get a box whose centre is the body origin (0, 0)
             //   and that when this object rotates about its centre it will
             //   act as expected.
-            for (i in 0...16) {
+            for (i in 0...50) {
                 var box:Body = new Body(BodyType.DYNAMIC);
                 box.shapes.add(new Polygon(Polygon.box(16, 32)));
-                box.position.setxy((w / 2), ((h - 50) - 32 * (i + 0.5)));
+                box.position.setxy((w / 2), 100+i*0.1);
                 box.space = space;
             }
 
